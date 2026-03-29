@@ -4,7 +4,7 @@
   "description": "A digital birthday masterpiece created for Akanksha.",
   "scripts": {
     "start": "serve .",
-    "build": "mkdir public && cp index.html public/"
+    "build": "mkdir -p public && cp index.html public/ && cp -r img public/"
   },
   "keywords": [],
   "author": "Zafar",
