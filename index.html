@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Akanksha ❤️</title>
-    
+
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Caveat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Caveat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
-    
+
     <!-- Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Animation Libraries (GSAP Core + ScrollTrigger) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -48,230 +51,790 @@
 
     <style>
         /* === BASE STYLES & OPTIMIZATIONS === */
-        html { scroll-behavior: smooth; }
-        body { background-color: #030104; color: #ffffff; overflow-x: hidden; cursor: none; font-family: 'Montserrat', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #030104; }
-        ::-webkit-scrollbar-thumb { background: #ff1453; border-radius: 10px; }
-        ::selection { background: #ff1453; color: white; }
-
-        /* Disable custom cursor on touch devices for better mobile performance */
-        @media (pointer: coarse) {
-            body, .interactive, button, a { cursor: auto !important; }
-            #custom-cursor, #cursor-dot { display: none !important; }
+        html {
+            scroll-behavior: smooth;
         }
+
+        body {
+            background-color: #030104;
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #030104;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff1453;
+            border-radius: 10px;
+        }
+
+        ::selection {
+            background: #ff1453;
+            color: white;
+        }
+
+        /* === STRICT SCROLL LOCK FOR PRELOADER === */
+        body.no-scroll {
+            overflow: hidden !important;
+            height: 100vh !important;
+            touch-action: none;
+        }
+
 
         /* Custom Cursor */
         #custom-cursor {
-            position: fixed; top: 0; left: 0; width: 30px; height: 30px;
-            border: 1px solid rgba(255, 107, 139, 0.6); border-radius: 50%;
-            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255, 107, 139, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999; /* Boosted to ensure it's always on top */
+            transform: translate(-50%, -50%);
             transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, opacity 0.4s ease;
             will-change: transform, width, height, opacity;
         }
-        #custom-cursor.hovering { width: 60px; height: 60px; background-color: rgba(255, 20, 83, 0.1); border-color: #ff1453; }
+
+        #custom-cursor.hovering {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 20, 83, 0.1);
+            border-color: #ff1453;
+        }
+
         #cursor-dot {
-            position: fixed; top: 0; left: 0; width: 4px; height: 4px; background: #fff; box-shadow: 0 0 10px #ff1453, 0 0 20px #ff1453;
-            border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            box-shadow: 0 0 10px #ff1453, 0 0 20px #ff1453;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999; /* Boosted to ensure it's always on top */
+            transform: translate(-50%, -50%);
             transition: opacity 0.4s ease;
             will-change: transform, opacity;
         }
 
         /* === OPTIMIZED AMBIENT BACKGROUND === */
-        .ambient-bg { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
-        .orb { position: absolute; border-radius: 50%; animation: floatOrb 25s infinite alternate ease-in-out; will-change: transform; }
-        .orb-1 { width: 80vw; height: 80vw; background: radial-gradient(circle, rgba(255,20,83,0.15) 0%, rgba(0,0,0,0) 60%); top: -20%; left: -20%; }
-        .orb-2 { width: 90vw; height: 90vw; background: radial-gradient(circle, rgba(138,43,226,0.1) 0%, rgba(0,0,0,0) 60%); bottom: -30%; right: -20%; animation-delay: -5s; }
-        .orb-3 { width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(226,197,122,0.08) 0%, rgba(0,0,0,0) 60%); top: 30%; left: 30%; animation-delay: -10s; }
-        
-        @keyframes floatOrb {
-            0% { transform: translate3d(0, 0, 0) scale(1); }
-            33% { transform: translate3d(3%, 5%, 0) scale(1.05); }
-            66% { transform: translate3d(-3%, 3%, 0) scale(0.95); }
-            100% { transform: translate3d(0, 0, 0) scale(1); }
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
         }
 
-        #particle-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.8; }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatOrb 25s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(255, 20, 83, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
+            top: -20%;
+            left: -20%;
+        }
+
+        .orb-2 {
+            width: 90vw;
+            height: 90vw;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, rgba(0, 0, 0, 0) 60%);
+            bottom: -30%;
+            right: -20%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(226, 197, 122, 0.08) 0%, rgba(0, 0, 0, 0) 60%);
+            top: 30%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate3d(3%, 5%, 0) scale(1.05);
+            }
+
+            66% {
+                transform: translate3d(-3%, 3%, 0) scale(0.95);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+        }
+
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
 
         /* === ADVANCED GLASSMORPHISM === */
         .glass-premium {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-top-color: rgba(255,255,255,0.2); border-left-color: rgba(255,255,255,0.2);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            position: relative; overflow: hidden;
-            transform: translateZ(0); 
-        }
-        .glass-premium::before {
-            content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 50%); pointer-events: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top-color: rgba(255, 255, 255, 0.2);
+            border-left-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
         }
 
-        .text-glow { text-shadow: 0 0 20px rgba(255, 20, 83, 0.6); }
+        .glass-premium::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 20, 83, 0.6);
+        }
 
         /* === GLARE TEXT EFFECT === */
         .glare-text {
-            background: linear-gradient(
-                120deg,
-                #ffffff 30%,
-                #ffffff 40%,
-                #ff1453 48%,
-                #e2c57a 52%,
-                #ffffff 60%,
-                #ffffff 70%
-            );
-            background-size: 200% auto;
+            background: linear-gradient(110deg,
+                    #ffffff 35%,
+                    #ffffff 42%,
+                    #ff1453 48%,
+                    #e2c57a 50%,
+                    #ff1453 52%,
+                    #ffffff 58%,
+                    #ffffff 65%);
+            background-size: 250% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: glare-sweep 4s linear infinite;
             display: inline-block;
         }
-        @keyframes glare-sweep {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
+
+        .glare-left {
+            animation: glare-left-anim 8s linear infinite;
+        }
+
+        .glare-right {
+            animation: glare-right-anim 8s linear infinite;
+        }
+
+        .glare-joined {
+            animation: glare-joined-anim 8s linear infinite;
+        }
+
+        @keyframes glare-left-anim {
+            0% { background-position: 150% center; }
+            20% { background-position: -50% center; }
+            100% { background-position: -50% center; }
+        }
+
+        @keyframes glare-right-anim {
+            0% { background-position: 150% center; }
+            20% { background-position: 150% center; }
+            40% { background-position: -50% center; }
+            100% { background-position: -50% center; }
+        }
+
+        @keyframes glare-joined-anim {
+            0% { background-position: 150% center; }
+            40% { background-position: -50% center; }
+            100% { background-position: -50% center; }
         }
 
         /* === POSTER ENHANCEMENTS === */
         .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 90; opacity: 0.04;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 90;
+            opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
+
         .text-outline {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.08);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
             color: transparent;
         }
+
         .poster-frame {
-            position: absolute; inset: 1.5rem; border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 1rem; pointer-events: none; z-index: 1;
+            position: absolute;
+            inset: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* === PRELOADER === */
+        /* === NEW CINEMATIC PRELOADER STYLES === */
         #preloader {
-            position: fixed; inset: 0; background: #030104; z-index: 9999;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
-            transition: opacity 0.8s ease-in-out;
+            position: fixed;
+            inset: 0;
+            background: #030104; /* Deep dark base */
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
+
+        .avatar-spotlight {
+            will-change: transform, opacity;
+        }
+
+        #avatar-container {
+            transform-origin: 50% 70%; /* Anchors the 3D fly-through to the chest/arms */
+            will-change: transform, opacity, filter;
+        }
+
+        #preloader-avatar {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.9));
+        }
+
+        /* Re-positioned UI Elements for Preloader */
         .loader-ring {
-            width: 120px; height: 120px; border: 2px solid rgba(255,20,83,0.1); border-radius: 50%; position: relative;
-            display: flex; justify-content: center; align-items: center;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255, 20, 83, 0.1);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .loader-ring::before {
-            content: ''; position: absolute; inset: -2px; border-radius: 50%;
-            border: 2px solid transparent; border-top-color: #ff1453; border-right-color: #ff6b8b;
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #ff1453;
+            border-right-color: #ff6b8b;
             animation: spin 1.5s linear infinite;
         }
-        .heart-pulse { color: #ff1453; font-size: 2rem; animation: pulse 1s infinite; }
-        .loading-text-container { height: 30px; overflow: hidden; margin-top: 30px; position: relative; }
-        .loading-text { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 3px; color: rgba(255,255,255,0.7); text-transform: uppercase; position: absolute; width: 100%; text-align: center; opacity: 0; transition: all 0.5s ease; }
-        .loading-text.active { opacity: 1; transform: translateY(0); }
-        .loading-text.exit { opacity: 0; transform: translateY(-20px); }
-        .loading-text.enter { opacity: 0; transform: translateY(20px); }
-        
-        #enter-btn {
-            opacity: 0; pointer-events: none; margin-top: 40px; padding: 15px 40px;
-            background: rgba(255, 20, 83, 0.1); border: 1px solid rgba(255,20,83,0.5); border-radius: 30px;
-            font-family: 'Cinzel', serif; letter-spacing: 2px; color: white;
-            transition: all 0.4s ease; text-transform: uppercase; cursor: none;
-        }
-        #enter-btn.visible { opacity: 1; pointer-events: auto; }
-        #enter-btn:hover { background: rgba(255, 20, 83, 0.3); box-shadow: 0 0 20px rgba(255, 20, 83, 0.4); transform: scale(1.05); }
 
-        @keyframes pulse { 0%, 100% { transform: scale(0.9); } 50% { transform: scale(1.2); text-shadow: 0 0 20px #ff1453; } }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .heart-pulse {
+            color: #ff1453;
+            font-size: 2rem;
+            animation: pulse 1s infinite;
+        }
+
+        .loading-text-container {
+            height: 40px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            z-index: 50;
+        }
+
+        .loading-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .loading-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-text.exit {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .loading-text.enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Premium Glassmorphism Button from Screenshot */
+        #enter-btn {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            bottom: 5vh;
+            padding: 16px 50px;
+            background: linear-gradient(90deg, rgba(60, 0, 15, 0.4), rgba(255, 20, 83, 0.15), rgba(60, 0, 15, 0.4));
+            border: 1px solid rgba(255, 20, 83, 0.4);
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            color: #fdfbf7;
+            text-transform: uppercase;
+            cursor: none;
+            z-index: 60;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9), inset 0 0 15px rgba(255, 20, 83, 0.2);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #enter-btn::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, transparent, rgba(255, 20, 83, 0.8), transparent);
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #enter-btn:hover {
+            background: linear-gradient(90deg, rgba(80, 0, 20, 0.6), rgba(255, 20, 83, 0.25), rgba(80, 0, 20, 0.6));
+            border-color: rgba(255, 20, 83, 0.8);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 0 20px rgba(255, 20, 83, 0.4);
+        }
+        
+        #enter-btn:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.9); }
+            50% { transform: scale(1.2); text-shadow: 0 0 20px #ff1453; }
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
 
         /* === EXPANDING PROMISES CARDS === */
         .promise-card {
             flex: 1;
             transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
         }
+
         @media (min-width: 768px) {
             .promise-card:hover {
                 flex: 2.5;
                 box-shadow: 0 10px 40px rgba(255, 20, 83, 0.2);
             }
         }
+
         /* Mobile handling */
         @media (max-width: 767px) {
-            .promise-card { height: 180px; flex: none !important; }
-            .promise-card:active { transform: scale(0.98); }
-            .promise-card:hover h3 { margin-bottom: 0.5rem; }
-            .promise-card:hover p { opacity: 1; height: auto; margin-top: 10px; }
+            .promise-card {
+                height: 180px;
+                flex: none !important;
+            }
+
+            .promise-card:active {
+                transform: scale(0.98);
+            }
+
+            .promise-card:hover h3 {
+                margin-bottom: 0.5rem;
+            }
+
+            .promise-card:hover p {
+                opacity: 1;
+                height: auto;
+                margin-top: 10px;
+            }
         }
 
         /* === BENTO GRID SECTION === */
-        .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .bento-item { border-radius: 24px; padding: 30px; display: flex; flex-direction: column; justify-content: center; transition: transform 0.4s ease, box-shadow 0.4s ease; cursor: none; }
-        .bento-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 40px rgba(255, 20, 83, 0.2); }
-        .bento-large { grid-column: span 2; }
-        @media (max-width: 768px) { .bento-large { grid-column: span 1; } }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .bento-item {
+            border-radius: 24px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: none;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 20, 83, 0.2);
+        }
+
+        .bento-large {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .bento-large {
+                grid-column: span 1;
+            }
+        }
 
         /* === HORIZONTAL SCROLL GALLERY === */
-        .horizontal-scroll-wrapper { width: 100%; height: 100vh; overflow: hidden; position: relative; background: rgba(3, 1, 4, 0.4); backdrop-filter: blur(5px); }
-        .gallery-track { display: flex; height: 100%; align-items: center; padding: 0 10vw; gap: 5vw; width: max-content; will-change: transform; }
+        .horizontal-scroll-wrapper {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: rgba(3, 1, 4, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            padding: 0 10vw;
+            gap: 5vw;
+            width: max-content;
+            will-change: transform;
+        }
+
         .gallery-item {
-            width: 50vw; min-width: 320px; max-width: 600px; height: 60vh; position: relative; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); cursor: none; transform: translateZ(0);
+            width: 50vw;
+            min-width: 320px;
+            max-width: 600px;
+            height: 60vh;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            cursor: none;
+            transform: translateZ(0);
         }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
-        .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); transition: opacity 0.5s ease; z-index: 1; }
-        .gallery-item:hover .gallery-overlay { opacity: 0; }
-        .gallery-item:hover img { transform: scale(1.08); }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 0;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
         .gallery-caption {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 30px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(20px); opacity: 0; transition: all 0.4s ease; z-index: 2;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 30px 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2;
         }
-        .gallery-item:hover .gallery-caption { transform: translateY(0); opacity: 1; }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
 
         /* === INTERACTIVE LETTER === */
-        .letter-section { perspective: 1200px; }
-        .envelope-wrapper { position: relative; width: 100%; max-width: 700px; margin: 0 auto; cursor: none; transform-style: preserve-3d; transition: transform 1s ease; }
-        .envelope-wrapper:hover { transform: translateY(-10px) rotateX(5deg); }
+        .letter-section {
+            perspective: 1200px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            cursor: none;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+
         .wax-seal {
-            position: absolute; top: -30px; left: 50%; transform: translateX(-50%); z-index: 10;
-            width: 80px; height: 80px; background: radial-gradient(circle, #990011, #4d0008);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 10px 20px rgba(255,20,83,0.5);
-            transition: all 0.5s ease; border: 2px solid #ff1453;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #990011, #4d0008);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 10px 20px rgba(255, 20, 83, 0.5);
+            transition: all 0.5s ease;
+            border: 2px solid #ff1453;
         }
-        .envelope-wrapper:hover .wax-seal { transform: translateX(-50%) scale(1.1); box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 10px 30px #ff1453; }
-        .wax-seal.broken { transform: translateX(-50%) scale(2); opacity: 0; pointer-events: none; filter: blur(10px); }
+
+        .envelope-wrapper:hover .wax-seal {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 10px 30px #ff1453;
+        }
+
+        .wax-seal.broken {
+            transform: translateX(-50%) scale(2);
+            opacity: 0;
+            pointer-events: none;
+            filter: blur(10px);
+        }
+
         .letter-content {
-            background: #fdfbf7; background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
-            color: #2c2c2c; padding: 4rem; border-radius: 10px;
-            max-height: 0; overflow: hidden; opacity: 0; transform: rotateX(-90deg); transform-origin: top;
-            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            background: #fdfbf7;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: #2c2c2c;
+            padding: 4rem;
+            border-radius: 10px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: rotateX(-90deg);
+            transform-origin: top;
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
-        .letter-content.open { max-height: 2000px; opacity: 1; transform: rotateX(0deg); margin-top: 2rem; }
-        @media (max-width: 768px) { .letter-content { padding: 2rem; } }
-        
+
+        .letter-content.open {
+            max-height: 2000px;
+            opacity: 1;
+            transform: rotateX(0deg);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .letter-content {
+                padding: 2rem;
+            }
+        }
+
         /* Floating Music Player */
-        #music-player { position: fixed; bottom: 30px; right: 30px; z-index: 100; cursor: none; display: flex; align-items: center; gap: 15px; }
-        .vinyl { width: 60px; height: 60px; background: #111; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px rgba(0,0,0,0.5); transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .vinyl::before { content: ''; position: absolute; inset: 5px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
-        .vinyl::after { content: ''; position: absolute; width: 15px; height: 15px; background: #ff1453; border-radius: 50%; box-shadow: inset 0 0 5px #000; }
-        .vinyl.playing { animation: spin 3s linear infinite; border-color: #ff1453; box-shadow: 0 0 20px rgba(255,20,83,0.4); }
-        .music-info { background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); padding: 8px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); opacity: 0; transform: translateX(20px); transition: all 0.3s ease; pointer-events: none; }
-        #music-player:hover .music-info { opacity: 1; transform: translateX(0); }
+        #music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vinyl {
+            width: 60px;
+            height: 60px;
+            background: #111;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #ff1453;
+            border-radius: 50%;
+            box-shadow: inset 0 0 5px #000;
+        }
+
+        .vinyl.playing {
+            animation: spin 3s linear infinite;
+            border-color: #ff1453;
+            box-shadow: 0 0 20px rgba(255, 20, 83, 0.4);
+        }
+
+        .music-info {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        #music-player:hover .music-info {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
         /* === PREMIUM BUTTON === */
         .btn-magical {
-            position: relative; padding: 20px 50px; background: transparent; color: white;
-            font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 3px;
-            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50px; overflow: hidden; transition: all 0.4s ease; z-index: 1; cursor: none;
+            position: relative;
+            padding: 20px 50px;
+            background: transparent;
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+            cursor: none;
             box-shadow: 0 0 20px rgba(255, 20, 83, 0.2);
         }
-        .btn-magical::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
-            background: linear-gradient(90deg, #ff1453, #ff6b8b); z-index: -1; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-magical:hover::before { width: 100%; }
-        .btn-magical:hover { box-shadow: 0 0 40px rgba(255, 20, 83, 0.6); border-color: transparent; transform: translateY(-5px); }
 
+        .btn-magical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff1453, #ff6b8b);
+            z-index: -1;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-magical:hover::before {
+            width: 100%;
+        }
+
+        .btn-magical:hover {
+            box-shadow: 0 0 40px rgba(255, 20, 83, 0.6);
+            border-color: transparent;
+            transform: translateY(-5px);
+        }
+
+        /* === INTERACTIVE CANDLE (FINALE) === */
+        .candle-wrapper { position: relative; width: 60px; height: 160px; margin: 0 auto; cursor: none; transition: transform 0.3s ease; }
+        .candle-wrapper:hover { transform: scale(1.05); }
+        .candle-body { position: absolute; bottom: 0; width: 100%; height: 110px; background: linear-gradient(to right, #d4af37, #fff3e0 30%, #e2c57a 70%, #b58c1c); border-radius: 5px 5px 10px 10px; box-shadow: inset 0 -5px 15px rgba(0,0,0,0.4), 0 15px 30px rgba(0,0,0,0.6); z-index: 2; }
+        .candle-wick { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); width: 4px; height: 15px; background: linear-gradient(to bottom, #111, #444); border-radius: 2px; z-index: 1; }
+        .candle-flame { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); width: 26px; height: 45px; background: radial-gradient(ellipse at bottom, white 10%, #ffe066 40%, #ff9900 80%, transparent 100%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; box-shadow: 0 0 20px #ff9900, 0 0 40px #ff9900, 0 0 60px #ff1453; animation: flicker 0.12s infinite alternate; transition: all 0.5s ease; transform-origin: bottom center; z-index: 3; }
+        .candle-glow { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; background: radial-gradient(circle, rgba(255, 153, 0, 0.25) 0%, transparent 70%); border-radius: 50%; transition: opacity 0.5s ease; pointer-events: none; animation: pulseGlow 2s infinite alternate; z-index: 0; }
+        .candle-smoke { position: absolute; bottom: 125px; left: 50%; transform: translateX(-50%) scale(0.5); width: 30px; height: 60px; background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%); border-radius: 50%; opacity: 0; transition: all 1.5s cubic-bezier(0.1, 0.8, 0.3, 1); pointer-events: none; filter: blur(6px); z-index: 4; }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-1deg); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.05) rotate(1deg); opacity: 1; }
+        }
+        @keyframes pulseGlow {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.5; }
+            100% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* === MOBILE WARNING RESTRICTOR === */
+        #mobile-warning {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            #mobile-warning {
+                display: flex !important;
+            }
+            #preloader, #main-content, #music-player, #custom-cursor, #cursor-dot {
+                display: none !important;
+            }
+            body {
+                overflow: hidden !important;
+            }
+        }
     </style>
 </head>
-<body>
+
+<body class="no-scroll">
+
+    <!-- === MOBILE DEVICE RESTRICTOR === -->
+    <div id="mobile-warning" class="fixed inset-0 z-[20000] bg-dark flex-col justify-center items-center px-6 text-center">
+        <!-- Static background glow for mobile screen -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-[-1]">
+            <div class="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] rounded-full bg-primary/20 blur-[80px]"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[80vw] h-[80vw] rounded-full bg-gold/10 blur-[80px]"></div>
+        </div>
+
+        <div class="glass-premium p-10 rounded-3xl max-w-md w-full border border-primary/30 shadow-[0_20px_50px_rgba(255,20,83,0.3)]">
+            <i class="ph-duotone ph-laptop text-6xl text-gold mb-6 animate-pulse"></i>
+            <h2 class="font-serif text-3xl md:text-4xl text-white mb-4">Hold on there...</h2>
+            <p class="font-sans text-gray-300 font-light leading-relaxed text-sm md:text-base">
+                This digital masterpiece is far too vast for a tiny screen. Don't be so lazy! Get up, open your laptop, and experience this exactly the way it was meant to be seen. 😉
+            </p>
+            <p class="font-script text-4xl text-primary mt-8 drop-shadow-[0_0_15px_rgba(255,20,83,0.6)]">For Akanksha</p>
+        </div>
+    </div>
 
     <!-- Ambient Background -->
     <div class="ambient-bg">
@@ -284,7 +847,7 @@
     <canvas id="particle-canvas"></canvas>
 
     <!-- Noise Overlay for Editorial Film Look -->
-    <div class="noise-overlay"></div>
+    <!-- <div class="noise-overlay"></div> -->
 
     <!-- Custom Cursor -->
     <div id="custom-cursor"></div>
@@ -301,18 +864,53 @@
         <div class="vinyl" id="vinyl-record"></div>
     </div>
 
-    <!-- Multi-Step Preloader -->
+    <!-- ================= CINEMATIC PRELOADER ================= -->
     <div id="preloader">
-        <div class="loader-ring">
-            <i class="ph-fill ph-heart heart-pulse"></i>
+        
+        <!-- Vignette to draw focus to the center -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030104_100%)] z-10 pointer-events-none opacity-80"></div>
+        
+        <!-- Elegant Frame -->
+        <div class="absolute inset-6 border border-white/5 rounded-2xl z-10 pointer-events-none hidden md:block"></div>
+
+        <!-- Corner Microcopy to fill empty space -->
+        <div class="absolute top-12 left-12 z-20 opacity-0 preloader-ui hidden md:block">
+            <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-white/50">A Digital Experience</span>
         </div>
-        <div class="loading-text-container">
-            <div class="loading-text active" id="load-text-1">Gathering stardust...</div>
-            <div class="loading-text enter" id="load-text-2">Tuning the strings...</div>
-            <div class="loading-text enter" id="load-text-3">Waking up the butterflies...</div>
-            <div class="loading-text enter" id="load-text-4">Ready for you, Akanksha.</div>
+        <div class="absolute top-12 right-12 z-20 opacity-0 preloader-ui hidden md:block text-right">
+            <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-white/50">Exclusively For<br><span class="text-primary mt-1 inline-block">Akanksha</span></span>
         </div>
-        <button id="enter-btn" class="interactive" onclick="enterSite()">Tap to Open Your Present</button>
+
+        <!-- Spinning Geometric Ring / Halo behind avatar -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[700px] max-h-[700px] rounded-full border border-white/5 z-0 animate-[spin_40s_linear_infinite] opacity-0 avatar-spotlight flex justify-center items-center pointer-events-none">
+            <div class="w-[90%] h-[90%] rounded-full border border-dashed border-white/10"></div>
+            <div class="absolute w-[110%] h-[110%] rounded-full border border-primary/20 blur-[2px]"></div>
+        </div>
+
+        <!-- Deep Red Cinematic Spotlight (matches screenshot perfectly) -->
+        <div class="avatar-spotlight absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vw] max-w-[1000px] max-h-[1000px] rounded-full bg-gradient-to-tr from-[#600015]/80 via-[#ff1453]/20 to-transparent blur-[100px] opacity-0 z-0 pointer-events-none mix-blend-screen"></div>
+
+        <!-- The Avatar -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full flex justify-center z-10 pointer-events-none" id="avatar-container">
+            <img src="./img/avatar-1.png" alt="Zafar" id="preloader-avatar">
+            <!-- Fade overlay so legs blend smoothly into the dark bottom -->
+            <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#030104] via-[#030104]/80 to-transparent"></div>
+        </div>
+
+        <!-- UI Elements -->
+        <div class="relative z-20 w-full h-full flex flex-col items-center justify-center">
+            <div class="loader-ring absolute top-[40%] -translate-y-1/2" id="preloader-ring">
+                <i class="ph-fill ph-heart heart-pulse"></i>
+            </div>
+
+            <div class="loading-text-container absolute top-[55%] -translate-y-1/2 mt-10">
+                <div class="loading-text active" id="load-text-1">Gathering stardust...</div>
+                <div class="loading-text enter" id="load-text-2">Tuning the strings...</div>
+                <div class="loading-text enter" id="load-text-3">Waking up the butterflies...</div>
+            </div>
+
+            <button id="enter-btn" class="interactive" onclick="enterSite()">Tap to Open Your Present</button>
+        </div>
     </div>
 
     <!-- Main Content Wrapper -->
@@ -320,94 +918,118 @@
 
         <!-- Global Progress Bar -->
         <div class="fixed top-0 left-0 w-full h-1 bg-white/5 z-50">
-            <div id="scroll-progress" class="h-full bg-gradient-to-r from-gold via-secondary to-primary w-0 box-shadow-[0_0_10px_#ff1453]"></div>
+            <div id="scroll-progress"
+                class="h-full bg-gradient-to-r from-gold via-secondary to-primary w-0 box-shadow-[0_0_10px_#ff1453]">
+            </div>
         </div>
 
         <!-- ================= HERO SECTION (POSTER EDITORIAL STYLE) ================= -->
-        <section class="min-h-screen flex flex-col justify-center items-center relative px-6 pt-20 pb-10 overflow-hidden">
-            
+        <section
+            class="min-h-screen flex flex-col justify-center items-center relative px-6 pt-20 pb-10 overflow-hidden">
+
             <!-- Elegant Poster Frame -->
             <div class="poster-frame hidden md:block"></div>
-            
+
             <!-- Top Editorial Micro-copy -->
-            <div class="absolute top-8 left-8 md:top-12 md:left-12 z-20 hidden sm:flex flex-col gap-1 text-left opacity-60">
-                <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-white">Issue No. 01</span>
+            <div
+                class="absolute top-8 left-8 md:top-12 md:left-12 z-20 hidden sm:flex flex-col gap-1 text-left opacity-60 hero-editorial">
+                <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-white">Birth No. 23</span>
                 <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-white">Vol. 2026</span>
             </div>
-            <div class="absolute top-8 right-8 md:top-12 md:right-12 z-20 hidden sm:flex flex-col gap-1 text-right opacity-60">
+            <div
+                class="absolute top-8 right-8 md:top-12 md:right-12 z-20 hidden sm:flex flex-col gap-1 text-right opacity-60 hero-editorial">
                 <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-white">A Digital Masterpiece</span>
                 <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-white">Exclusively Yours</span>
             </div>
 
             <!-- Massive background typographic watermark -->
-            <div class="absolute inset-0 flex flex-col justify-center items-center z-0 pointer-events-none overflow-hidden opacity-[0.25] select-none scale-110">
+            <div
+                class="absolute inset-0 flex flex-col justify-center items-center z-0 pointer-events-none overflow-hidden opacity-[0.25] select-none scale-110 hero-watermark">
                 <h1 class="font-serif text-[22vw] font-bold whitespace-nowrap leading-[0.85] text-outline">FOREVER</h1>
                 <h1 class="font-serif text-[22vw] font-bold whitespace-nowrap leading-[0.85] text-outline">FOREVER</h1>
                 <h1 class="font-serif text-[22vw] font-bold whitespace-nowrap leading-[0.85] text-outline">FOREVER</h1>
             </div>
 
             <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col items-center justify-center mt-10 md:mt-0">
-                
+
                 <!-- The "Poster" Composition -->
-                <div class="relative flex justify-center items-center w-full max-w-5xl gs-reveal">
-                    
+                <div class="relative flex justify-center items-center w-full max-w-5xl">
+
                     <!-- Left Text (Overlapping Image) -->
-                    <div class="absolute left-0 md:left-10 lg:left-0 top-1/4 z-30 text-left hidden sm:block mix-blend-screen pointer-events-none">
-                        <p class="font-cinzel text-gold tracking-[0.4em] uppercase text-xs md:text-sm mb-2 drop-shadow-md ml-2">Celebrating You</p>
-                        <h1 class="font-serif text-6xl md:text-8xl lg:text-[7rem] font-bold leading-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] glare-text">
+                    <div
+                        class="absolute left-0 md:left-10 lg:left-0 top-1/4 z-30 text-left hidden sm:block mix-blend-screen pointer-events-none">
+                        <p
+                            class="font-cinzel text-gold tracking-[0.4em] uppercase text-xs md:text-sm mb-2 drop-shadow-md ml-2 hero-subtitle">
+                            Celebrating You</p>
+                        <h1
+                            class="font-serif text-6xl md:text-8xl lg:text-[7rem] font-bold leading-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] glare-text glare-left hero-happy">
                             Happy
                         </h1>
                     </div>
 
                     <!-- Central Image Frame -->
-                    <div class="relative w-[16rem] h-[22rem] sm:w-[20rem] sm:h-[28rem] md:w-[24rem] md:h-[32rem] lg:w-[28rem] lg:h-[38rem] z-20">
+                    <div
+                        class="relative w-[16rem] h-[22rem] sm:w-[20rem] sm:h-[28rem] md:w-[24rem] md:h-[32rem] lg:w-[28rem] lg:h-[38rem] z-20 hero-img-frame">
                         <!-- Glowing aura behind image -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-primary via-secondary to-gold opacity-60 blur-[100px] rounded-full"></div>
-                        
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-primary via-secondary to-gold opacity-60 blur-[100px] rounded-full">
+                        </div>
+
                         <!-- Arch Image Container -->
-                        <div class="relative w-full h-full glass-premium rounded-t-[14rem] rounded-b-md overflow-hidden p-2 shadow-[0_30px_60px_rgba(0,0,0,0.8)] scale-[1.03] border border-white/20">
-                            <!-- EDIT HERE: Replace the src link with a beautiful photo of Akanksha -->
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Akanksha" class="w-full h-full object-cover rounded-t-[13.5rem] rounded-b-sm filter brightness-95 contrast-110 sepia-[10%]">
+                        <div
+                            class="relative w-full h-full glass-premium rounded-t-[14rem] rounded-b-md overflow-hidden p-2 shadow-[0_30px_60px_rgba(0,0,0,0.8)] scale-[1.03] border border-white/20">
                             
-                            <!-- Inner grain for editorial feel -->
-                            <div class="absolute inset-0 bg-black/10 mix-blend-overlay pointer-events-none rounded-t-[13.5rem] rounded-b-sm"></div>
+                            <img src="./img/poster.png" alt="Akanksha"
+                                class="w-full h-full object-cover rounded-t-[13.5rem] rounded-b-sm filter brightness-95 contrast-110 sepia-[10%]">
+
                         </div>
-                        
+
                         <!-- Floating Badges -->
-                        <div class="absolute -right-6 top-20 md:-right-12 md:top-32 glass-premium px-6 py-3 rounded-full z-40 shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/20 backdrop-blur-md animate-pulse">
-                            <span class="font-cinzel text-gold tracking-[0.2em] text-xs font-bold drop-shadow-md">THE MUSE</span>
+                        <div
+                            class="absolute -right-6 top-20 md:-right-12 md:top-32 glass-premium px-6 py-3 rounded-full z-40 shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-primary/40 backdrop-blur-md animate-pulse hero-badge">
+                            <span class="font-cinzel text-gold tracking-[0.2em] text-xs font-bold drop-shadow-md">THE
+                                MUSE</span>
                         </div>
-                        <div class="absolute -left-8 bottom-32 md:-left-20 md:bottom-40 glass-premium px-8 py-4 rounded-full z-40 shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/20 backdrop-blur-md" style="animation: floatOrb 5s infinite alternate ease-in-out;">
-                            <span class="font-script text-3xl md:text-4xl text-white drop-shadow-md pr-2">My Everything</span>
+                        <div class="absolute -left-8 bottom-32 md:-left-20 md:bottom-40 glass-premium px-8 py-4 rounded-full z-40 shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-primary/40 backdrop-blur-md hero-badge"
+                            style="animation: floatOrb 5s infinite alternate ease-in-out;">
+                            <span class="font-script text-3xl md:text-4xl text-white drop-shadow-md pr-2">My Girl</span>
                         </div>
                     </div>
 
                     <!-- Right Text (Overlapping Image) -->
-                    <div class="absolute right-0 md:right-10 lg:right-0 bottom-1/3 z-30 text-right hidden sm:block mix-blend-screen pointer-events-none">
-                        <h1 class="font-serif text-6xl md:text-8xl lg:text-[7rem] font-bold leading-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] glare-text" style="animation-delay: 1.5s;">
+                    <div
+                        class="absolute right-0 md:right-10 lg:right-0 bottom-1/3 z-30 text-right hidden sm:block mix-blend-screen pointer-events-none">
+                        <h1
+                            class="font-serif text-6xl md:text-8xl lg:text-[7rem] font-bold leading-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] glare-text glare-right hero-birthday">
                             Birthday
                         </h1>
-                        <p class="font-sans text-gray-300 font-light text-[10px] md:text-xs tracking-[0.4em] uppercase mt-4 drop-shadow-md mr-2">To my beautiful girl</p>
+                        <p
+                            class="font-sans text-gray-300 font-light text-[10px] md:text-xs tracking-[0.4em] uppercase mt-4 drop-shadow-md mr-2 hero-subtitle">
+                            To my beautiful girl</p>
                     </div>
 
                     <!-- Mobile Text (Fallback) -->
                     <div class="absolute top-[-4rem] z-30 text-center sm:hidden w-full flex flex-col items-center">
-                        <p class="font-cinzel text-gold tracking-[0.3em] uppercase text-[9px] mb-2 drop-shadow-md">Celebrating You</p>
-                        <h1 class="font-serif text-6xl font-bold text-glow leading-none drop-shadow-[0_5px_10px_rgba(0,0,0,0.8)] glare-text pb-2">
+                        <p class="font-cinzel text-gold tracking-[0.3em] uppercase text-[9px] mb-2 drop-shadow-md hero-subtitle">
+                            Celebrating You</p>
+                        <h1
+                            class="font-serif text-6xl font-bold text-glow leading-none drop-shadow-[0_5px_10px_rgba(0,0,0,0.8)] glare-text glare-joined pb-2 hero-happy">
                             Happy Birthday
                         </h1>
                     </div>
                 </div>
 
-                <!-- Overlapping Name (Brings it all together) -->
-                <div class="relative z-40 -mt-20 sm:-mt-24 md:-mt-32 lg:-mt-40 gs-reveal">
-                    <h1 class="font-script text-[8rem] sm:text-[11rem] md:text-[14rem] lg:text-[17rem] text-primary font-normal capitalize drop-shadow-[0_20px_40px_rgba(255,20,83,0.6)] leading-none text-center transform -rotate-2 cursor-default">
+                <!-- Overlapping Name -->
+                <div class="relative z-40 -mt-20 sm:-mt-24 md:-mt-32 lg:-mt-40 hero-name-comp">
+                    <h1
+                        class="font-script text-[8rem] sm:text-[11rem] md:text-[14rem] lg:text-[17rem] text-primary font-normal capitalize drop-shadow-[0_20px_40px_rgba(255,20,83,0.6)] leading-none text-center transform -rotate-2 cursor-default">
                         Akanksha
                     </h1>
                 </div>
 
                 <!-- Bottom Layout Line & Barcode styling for editorial feel -->
-                <div class="w-full max-w-4xl flex justify-between items-end mt-8 md:-mt-8 z-30 px-4 gs-reveal opacity-70">
+                <div
+                    class="w-full max-w-4xl flex justify-between items-end mt-8 md:-mt-8 z-30 px-4 opacity-70 hero-bottom-comp">
                     <div class="flex gap-1 items-end hidden md:flex opacity-60">
                         <div class="w-1 h-8 bg-white/80"></div>
                         <div class="w-2 h-10 bg-white/80"></div>
@@ -415,9 +1037,11 @@
                         <div class="w-3 h-12 bg-white/80"></div>
                         <div class="w-1 h-9 bg-white/80"></div>
                         <div class="w-2 h-7 bg-white/80"></div>
-                        <span class="font-sans text-[8px] tracking-widest ml-2 mb-1 text-white font-bold">00-29-03</span>
+                        <span
+                            class="font-sans text-[8px] tracking-widest ml-2 mb-1 text-white font-bold">00-30-03</span>
                     </div>
-                    <p class="font-sans font-light text-[10px] md:text-xs text-white tracking-[0.3em] uppercase text-center md:text-right w-full md:w-auto animate-pulse">
+                    <p
+                        class="font-sans font-light text-[10px] md:text-xs text-white tracking-[0.3em] uppercase text-center md:text-right w-full md:w-auto animate-pulse">
                         Scroll to let the magic unfold <i class="ph ph-arrow-down inline-block ml-1"></i>
                     </p>
                 </div>
@@ -428,52 +1052,67 @@
         <section class="py-32 px-6 relative z-10">
             <div class="text-center mb-20 gs-reveal">
                 <h2 class="font-serif text-5xl md:text-6xl mb-4 text-white">The Little Things</h2>
-                <p class="font-sans text-primary font-light tracking-[0.2em] uppercase text-sm">Why you are my favorite human</p>
+                <p class="font-sans text-primary font-light tracking-[0.2em] uppercase text-sm">Why you are my favorite
+                    human</p>
             </div>
 
             <div class="bento-grid">
                 <div class="bento-item glass-premium bento-large gs-reveal interactive group">
-                    <i class="ph-duotone ph-sparkle text-4xl text-gold mb-4 group-hover:rotate-12 transition-transform"></i>
+                    <i
+                        class="ph-duotone ph-sparkle text-4xl text-gold mb-4 group-hover:rotate-12 transition-transform"></i>
                     <h3 class="font-cinzel text-2xl text-white mb-2">Your Smile</h3>
-                    <p class="font-sans text-gray-300 font-light leading-relaxed">It literally brightens my darkest days. The moment you smile, everything else stops mattering.</p>
-                </div>
-                
-                <div class="bento-item glass-premium gs-reveal interactive group">
-                    <i class="ph-duotone ph-eyes text-4xl text-secondary mb-4 group-hover:scale-110 transition-transform"></i>
-                    <h3 class="font-cinzel text-xl text-white mb-2">Your Eyes</h3>
-                    <p class="font-sans text-gray-300 font-light text-sm">I could get lost in them forever. They hold so much warmth and kindness.</p>
+                    <p class="font-sans text-gray-300 font-light leading-relaxed">It literally brightens my darkest
+                        days. The moment you smile, everything else stops mattering.</p>
                 </div>
 
                 <div class="bento-item glass-premium gs-reveal interactive group">
-                    <i class="ph-duotone ph-brain text-4xl text-primary mb-4 group-hover:-translate-y-2 transition-transform"></i>
+                    <i
+                        class="ph-duotone ph-eyes text-4xl text-secondary mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-cinzel text-xl text-white mb-2">Your Eyes</h3>
+                    <p class="font-sans text-gray-300 font-light text-sm">I could get lost in them forever. They hold so
+                        much warmth and kindness.</p>
+                </div>
+
+                <div class="bento-item glass-premium gs-reveal interactive group">
+                    <i
+                        class="ph-duotone ph-brain text-4xl text-primary mb-4 group-hover:-translate-y-2 transition-transform"></i>
                     <h3 class="font-cinzel text-xl text-white mb-2">Your Mind</h3>
-                    <p class="font-sans text-gray-300 font-light text-sm">The way you think, your intelligence, and your perspective on the world amaze me.</p>
+                    <p class="font-sans text-gray-300 font-light text-sm">The way you think, your intelligence, and your
+                        perspective on the world amaze me.</p>
                 </div>
 
                 <div class="bento-item glass-premium bento-large gs-reveal interactive group">
-                    <i class="ph-duotone ph-heart-beat text-4xl text-gold mb-4 group-hover:scale-110 transition-transform"></i>
+                    <i
+                        class="ph-duotone ph-heart-beat text-4xl text-gold mb-4 group-hover:scale-110 transition-transform"></i>
                     <h3 class="font-cinzel text-2xl text-white mb-2">Your Beautiful Soul</h3>
-                    <p class="font-sans text-gray-300 font-light leading-relaxed">You care so deeply about others. Your heart is so pure, and being loved by you is my greatest blessing.</p>
+                    <p class="font-sans text-gray-300 font-light leading-relaxed">You care so deeply about others. Your
+                        heart is so pure, and being loved by you is my greatest blessing.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ================= NEW: PROMISES (EXPANDING CARDS) ================= -->
+        <!-- ================= PROMISES (EXPANDING CARDS) ================= -->
         <section class="py-32 px-6 relative z-10 max-w-6xl mx-auto">
             <div class="text-center mb-16 gs-reveal">
                 <h2 class="font-serif text-5xl md:text-6xl mb-4 text-white">My Promises</h2>
                 <p class="font-sans text-gold font-light tracking-widest uppercase text-sm mt-2">Hover to reveal</p>
             </div>
-            
+
             <div class="flex flex-col md:flex-row h-auto md:h-[500px] gap-6 w-full gs-reveal">
-                
+
                 <!-- Promise 1 -->
                 <div class="promise-card glass-premium rounded-[2rem] p-8 relative overflow-hidden group interactive">
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
                     <div class="h-full flex flex-col justify-end relative z-10">
-                        <i class="ph-duotone ph-ear text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
-                        <h3 class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">To Always Listen</h3>
-                        <p class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
+                        <i
+                            class="ph-duotone ph-ear text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                        <h3
+                            class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">
+                            To Always Listen</h3>
+                        <p
+                            class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
                             Even to the smallest things, because everything you say matters to me.
                         </p>
                     </div>
@@ -481,11 +1120,17 @@
 
                 <!-- Promise 2 -->
                 <div class="promise-card glass-premium rounded-[2rem] p-8 relative overflow-hidden group interactive">
-                    <div class="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
                     <div class="h-full flex flex-col justify-end relative z-10">
-                        <i class="ph-duotone ph-shield-check text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
-                        <h3 class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">To Be Your Peace</h3>
-                        <p class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
+                        <i
+                            class="ph-duotone ph-shield-check text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                        <h3
+                            class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">
+                            To Be Your Peace</h3>
+                        <p
+                            class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
                             In a chaotic world, I promise to always be your safe haven and your comfort zone.
                         </p>
                     </div>
@@ -493,11 +1138,17 @@
 
                 <!-- Promise 3 -->
                 <div class="promise-card glass-premium rounded-[2rem] p-8 relative overflow-hidden group interactive">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
                     <div class="h-full flex flex-col justify-end relative z-10">
-                        <i class="ph-duotone ph-hands-clapping text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
-                        <h3 class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">To Celebrate You</h3>
-                        <p class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
+                        <i
+                            class="ph-duotone ph-hands-clapping text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                        <h3
+                            class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">
+                            To Celebrate You</h3>
+                        <p
+                            class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
                             Not just today, but every single day. I will always be your biggest cheerleader.
                         </p>
                     </div>
@@ -511,12 +1162,13 @@
             <div class="absolute top-10 left-10 md:left-20 z-20 pointer-events-none">
                 <h2 class="font-serif text-5xl md:text-7xl text-white/40">Memory Lane</h2>
             </div>
-            
+
             <div class="gallery-track" id="gallery-track">
-                
+
                 <div class="gallery-item interactive">
                     <div class="gallery-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83164ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Memory">
+                    <img src="./img/mem-1.jpg"
+                        alt="Memory">
                     <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
                         <h4 class="font-handwriting text-3xl text-white">The beginning of us</h4>
                         <p class="font-sans text-sm text-gray-300 mt-2">When I first knew you were the one.</p>
@@ -525,7 +1177,8 @@
 
                 <div class="gallery-item interactive">
                     <div class="gallery-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1606905502111-e6e166699317?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Memory">
+                    <img src="./img/mem-2.jpg"
+                        alt="Memory">
                     <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
                         <h4 class="font-handwriting text-3xl text-gold">Our adventures</h4>
                         <p class="font-sans text-sm text-gray-300 mt-2">Every place is beautiful with you.</p>
@@ -534,14 +1187,26 @@
 
                 <div class="gallery-item interactive">
                     <div class="gallery-overlay"></div>
-                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Memory">
+                    <img src="./img/mem-3.jpg"
+                        alt="Memory">
                     <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
-                        <h4 class="font-handwriting text-3xl text-secondary">Just laughing</h4>
-                        <p class="font-sans text-sm text-gray-300 mt-2">My favorite sound in the world.</p>
+                        <h4 class="font-handwriting text-3xl text-gold">Perfectly In Sync</h4>
+                        <p class="font-sans text-sm text-gray-300 mt-2">Different styles, same rhythm. Every journey is better when taken together.</p>
                     </div>
                 </div>
-                
-                <div class="gallery-item interactive flex items-center justify-center bg-gradient-to-br from-primary/20 to-dark border border-white/10 rounded-2xl">
+
+                <div class="gallery-item interactive">
+                    <div class="gallery-overlay"></div>
+                    <img src="./img/mem-4.jpg"
+                        alt="Memory">
+                    <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
+                        <h4 class="font-handwriting text-3xl text-secondary">Just laughing</h4>
+                        <p class="font-sans text-sm text-gray-300 mt-2"> favorite Face in the world.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="gallery-item interactive flex items-center justify-center bg-gradient-to-br from-primary/20 to-dark border border-white/10 rounded-2xl">
                     <div class="text-center p-8">
                         <i class="ph-duotone ph-infinity text-6xl text-gold mb-4"></i>
                         <h4 class="font-serif text-4xl text-white">Many more to come...</h4>
@@ -552,69 +1217,120 @@
         </section>
 
         <!-- ================= TIMELINE SECTION ================= -->
-        <section class="py-32 px-6 md:px-12 relative z-10 max-w-5xl mx-auto">
-            <div class="text-center mb-24 gs-reveal">
-                <h2 class="font-serif text-5xl md:text-6xl mb-4 text-white">Our Story</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+        <section class="py-32 px-6 md:px-12 relative z-10 max-w-7xl mx-auto w-full overflow-hidden" id="story-section">
+            <div class="text-center mb-32 gs-reveal">
+                <h2 class="font-serif text-5xl md:text-7xl mb-4 text-white">Our Story</h2>
+                <p class="font-sans text-primary font-light tracking-[0.3em] uppercase text-sm mt-2">A beautiful journey</p>
             </div>
 
-            <div class="relative py-10 timeline-container">
-                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 shadow-[0_0_15px_rgba(255,20,83,0.5)]">
-                    <div id="timeline-progress-bar" class="absolute top-0 left-0 w-full h-0 bg-gradient-to-b from-gold to-primary"></div>
+            <div class="relative w-full max-w-5xl mx-auto">
+                <!-- Central SVG Thread (Glowing & Flowing) -->
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px] bg-gradient-to-b from-transparent via-white/10 to-transparent">
+                    <div id="timeline-progress-bar" class="absolute top-0 left-0 w-full h-0 bg-gradient-to-b from-gold via-primary to-secondary shadow-[0_0_20px_#ff1453]"></div>
                 </div>
 
-                <div class="mb-24 md:w-1/2 md:pr-12 md:ml-0 relative gs-reveal interactive">
-                    <div class="hidden md:block absolute right-[-7px] top-1/2 w-4 h-4 rounded-full bg-dark border-2 border-gold z-10 box-shadow-[0_0_10px_#e2c57a]"></div>
-                    <div class="glass-premium p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-500 text-right">
-                        <span class="font-sans text-gold font-semibold tracking-widest text-xs uppercase mb-2 block">Chapter 1</span>
-                        <h3 class="font-serif text-3xl text-white mb-3">The Day We Met</h3>
-                        <p class="font-sans text-gray-300 font-light text-sm leading-relaxed">You walked in, and everything else faded. I didn't know then that you would become my whole world.</p>
+                <!-- Chapter 1 -->
+                <div class="relative flex flex-col md:flex-row items-center w-full mb-32 md:mb-40 interactive group story-chapter">
+                    <!-- Massive Background Number -->
+                    <div class="absolute left-0 md:left-4 lg:-left-10 text-[10rem] md:text-[16rem] lg:text-[20rem] font-serif font-bold text-white/5 select-none -z-10 group-hover:text-gold/10 transition-colors duration-700 leading-none story-num">01</div>
+
+                    <!-- Visual Side -->
+                    <div class="md:w-1/2 md:pr-20 flex justify-center md:justify-end relative mb-10 md:mb-0">
+                        <!-- Glass Portal -->
+                        <div class="w-56 h-56 md:w-64 md:h-64 rounded-full border border-white/10 glass-premium flex items-center justify-center relative overflow-hidden group-hover:border-gold/40 transition-colors duration-700 shadow-2xl story-portal">
+                            <div class="absolute inset-0 bg-gold/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <i class="ph-duotone ph-sparkle text-[5rem] text-gold group-hover:scale-110 transition-transform duration-700"></i>
+                        </div>
+                        <!-- Connection Node -->
+                        <div class="hidden md:block absolute right-[-7px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-dark border-2 border-gold z-10 shadow-[0_0_15px_#e2c57a] story-node"></div>
+                    </div>
+
+                    <!-- Content Side -->
+                    <div class="md:w-1/2 md:pl-20 text-center md:text-left story-text-container">
+                        <span class="font-sans text-gold font-semibold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-4 block">The Beginning</span>
+                        <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6">The Day We Met</h3>
+                        <p class="font-serif text-gray-300 font-light text-xl md:text-2xl leading-relaxed italic">You walked in, and everything else faded. I didn't know then that you would become my whole world. It was the spark that ignited our universe.</p>
                     </div>
                 </div>
 
-                <div class="mb-24 md:w-1/2 md:pl-12 md:ml-auto relative gs-reveal interactive">
-                    <div class="hidden md:block absolute left-[-9px] top-1/2 w-4 h-4 rounded-full bg-dark border-2 border-secondary z-10 box-shadow-[0_0_10px_#ff6b8b]"></div>
-                    <div class="glass-premium p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-500 text-left">
-                        <span class="font-sans text-secondary font-semibold tracking-widest text-xs uppercase mb-2 block">Chapter 2</span>
-                        <h3 class="font-serif text-3xl text-white mb-3">Falling For You</h3>
-                        <p class="font-sans text-gray-300 font-light text-sm leading-relaxed">Late-night talks, endless laughter. Every day, I found a new reason to fall deeper in love with you.</p>
+                <!-- Chapter 2 -->
+                <div class="relative flex flex-col md:flex-row-reverse items-center w-full mb-32 md:mb-40 interactive group story-chapter">
+                    <!-- Massive Background Number -->
+                    <div class="absolute right-0 md:right-4 lg:-right-10 text-[10rem] md:text-[16rem] lg:text-[20rem] font-serif font-bold text-white/5 select-none -z-10 group-hover:text-secondary/10 transition-colors duration-700 leading-none story-num">02</div>
+
+                    <!-- Visual Side -->
+                    <div class="md:w-1/2 md:pl-20 flex justify-center md:justify-start relative mb-10 md:mb-0">
+                        <div class="w-56 h-56 md:w-64 md:h-64 rounded-full border border-white/10 glass-premium flex items-center justify-center relative overflow-hidden group-hover:border-secondary/40 transition-colors duration-700 shadow-2xl story-portal">
+                            <div class="absolute inset-0 bg-secondary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <i class="ph-duotone ph-heart text-[5rem] text-secondary group-hover:scale-110 transition-transform duration-700"></i>
+                        </div>
+                        <!-- Connection Node -->
+                        <div class="hidden md:block absolute left-[-9px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-dark border-2 border-secondary z-10 shadow-[0_0_15px_#ff6b8b] story-node"></div>
+                    </div>
+
+                    <!-- Content Side -->
+                    <div class="md:w-1/2 md:pr-20 text-center md:text-right story-text-container">
+                        <span class="font-sans text-secondary font-semibold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-4 block">The Connection</span>
+                        <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6">Falling For You</h3>
+                        <p class="font-serif text-gray-300 font-light text-xl md:text-2xl leading-relaxed italic">Late-night talks, endless laughter. Every day, I found a new reason to fall deeper in love with you. You quickly became my safest place.</p>
                     </div>
                 </div>
 
-                <div class="md:w-1/2 md:pr-12 md:ml-0 relative gs-reveal interactive">
-                    <div class="hidden md:block absolute right-[-7px] top-1/2 w-4 h-4 rounded-full bg-primary box-shadow-[0_0_20px_#ff1453] z-10 animate-pulse"></div>
-                    <div class="glass-premium p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-500 text-right border-primary/30">
-                        <span class="font-sans text-primary font-semibold tracking-widest text-xs uppercase mb-2 block">Right Now</span>
-                        <h3 class="font-serif text-3xl text-white mb-3">Your Birthday</h3>
-                        <p class="font-sans text-gray-300 font-light text-sm leading-relaxed">Celebrating the most incredible person I know. And this is still just the beginning of our story.</p>
+                <!-- Chapter 3 -->
+                <div class="relative flex flex-col md:flex-row items-center w-full mb-10 interactive group story-chapter">
+                    <!-- Massive Background Number -->
+                    <div class="absolute left-0 md:left-4 lg:-left-10 text-[10rem] md:text-[16rem] lg:text-[20rem] font-serif font-bold text-white/5 select-none -z-10 group-hover:text-primary/10 transition-colors duration-700 leading-none story-num">03</div>
+
+                    <!-- Visual Side -->
+                    <div class="md:w-1/2 md:pr-20 flex justify-center md:justify-end relative mb-10 md:mb-0">
+                        <div class="w-56 h-56 md:w-64 md:h-64 rounded-full border border-white/10 glass-premium flex items-center justify-center relative overflow-hidden group-hover:border-primary/40 transition-colors duration-700 shadow-2xl story-portal">
+                            <div class="absolute inset-0 bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <i class="ph-duotone ph-fire text-[5rem] text-primary group-hover:scale-110 transition-transform duration-700"></i>
+                        </div>
+                        <!-- Connection Node -->
+                        <div class="hidden md:block absolute right-[-7px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary z-10 shadow-[0_0_20px_#ff1453] animate-pulse story-node"></div>
+                    </div>
+
+                    <!-- Content Side -->
+                    <div class="md:w-1/2 md:pl-20 text-center md:text-left story-text-container">
+                        <span class="font-sans text-primary font-semibold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-4 block">Right Now</span>
+                        <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6">Your Birthday</h3>
+                        <p class="font-serif text-gray-300 font-light text-xl md:text-2xl leading-relaxed italic">Celebrating the most incredible person I know. And the most beautiful part? This is still just the beginning of our endless story.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ================= NEW: HOLD TO REVEAL ================= -->
-        <section class="py-32 px-6 relative z-10 flex flex-col items-center justify-center min-h-[50vh] border-y border-white/5 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
+        <section
+            class="py-32 px-6 relative z-10 flex flex-col items-center justify-center min-h-[50vh] border-y border-white/5 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
             <div class="text-center mb-10 gs-reveal">
                 <h2 class="font-serif text-4xl text-white">A Little Secret</h2>
-                <p class="font-sans text-sm text-primary font-light uppercase tracking-widest mt-2">Click and hold the heart to unlock</p>
+                <p class="font-sans text-sm text-primary font-light uppercase tracking-widest mt-2">Click and hold the
+                    heart to unlock</p>
             </div>
-            
-            <div class="relative w-48 h-48 flex justify-center items-center gs-reveal interactive" id="magic-heart-container">
+
+            <div class="relative w-48 h-48 flex justify-center items-center gs-reveal interactive"
+                id="magic-heart-container">
                 <!-- Outline Heart -->
-                <i class="ph ph-heart text-8xl text-white/20 absolute z-10 pointer-events-none transition-opacity duration-300" id="outline-heart"></i>
-                
+                <i class="ph ph-heart text-8xl text-white/20 absolute z-10 pointer-events-none transition-opacity duration-300"
+                    id="outline-heart"></i>
+
                 <!-- Fill Heart -->
-                <div class="absolute inset-0 flex justify-center items-center overflow-hidden pointer-events-none" style="clip-path: inset(100% 0 0 0);" id="magic-heart-fill">
+                <div class="absolute inset-0 flex justify-center items-center overflow-hidden pointer-events-none"
+                    style="clip-path: inset(100% 0 0 0);" id="magic-heart-fill">
                     <i class="ph-fill ph-heart text-8xl text-primary drop-shadow-[0_0_30px_#ff1453]"></i>
                 </div>
-                
+
                 <!-- Interaction Target -->
                 <div class="absolute inset-4 rounded-full z-20" id="heart-touch-target"></div>
             </div>
-            
+
             <!-- Hidden Message -->
-            <div id="secret-message" class="opacity-0 translate-y-4 transition-all duration-1000 mt-10 text-center absolute pointer-events-none">
-                <p class="font-handwriting text-4xl md:text-5xl text-gold">"You are my today and all of my tomorrows."</p>
+            <div id="secret-message"
+                class="opacity-0 translate-y-4 transition-all duration-1000 mt-10 text-center absolute pointer-events-none">
+                <p class="font-handwriting text-4xl md:text-5xl text-gold">"You are my today and all of my tomorrows."
+                </p>
             </div>
         </section>
 
@@ -628,7 +1344,7 @@
 
             <div class="max-w-3xl w-full letter-section gs-reveal">
                 <div class="envelope-wrapper interactive" onclick="openLetter(this)">
-                    
+
                     <div class="wax-seal">
                         <i class="ph-fill ph-heart text-3xl text-white/80"></i>
                     </div>
@@ -636,22 +1352,23 @@
                     <div class="letter-content relative">
                         <div class="absolute top-4 left-4 w-10 h-10 border-t-2 border-l-2 border-gold/40"></div>
                         <div class="absolute bottom-4 right-4 w-10 h-10 border-b-2 border-r-2 border-gold/40"></div>
-                        
-                        <h2 class="font-script text-5xl md:text-6xl text-primary mb-8 text-center">My Dearest Akanksha,</h2>
-                        
+
+                        <h2 class="font-script text-5xl md:text-6xl text-primary mb-8 text-center">My Dearest Akanksha,
+                        </h2>
+
                         <p class="font-serif text-xl md:text-2xl text-gray-800 leading-relaxed mb-6 italic">
-                            They say that if you want to know how much you love someone, you should imagine your life without them. But I can't. Because my life only truly started the moment you became a part of it.
+                            On this beautiful day, my heart is full of prayers and blessings just for you. May the universe shower you with all the joy, peace, and abundance that your pure soul truly deserves.
                         </p>
                         <p class="font-sans text-base md:text-lg text-gray-700 leading-relaxed mb-6 font-light">
-                            Today is so special because it's the day the universe decided to create my soulmate. You are breathtakingly beautiful, inside and out. Your kindness inspires me, your strength amazes me, and your love makes me the happiest man alive.
+                            I wish you boundless success in every endeavor you pursue. May God bless you with glowing health, unwavering confidence, and the courage to turn all your beautiful dreams into reality. 
                         </p>
                         <p class="font-sans text-base md:text-lg text-gray-700 leading-relaxed mb-10 font-light">
-                            I promise to always hold your hand, to celebrate your victories, and to be your safe place. Happy Birthday, my beautiful girl. Let's make this year unforgettable.
+                            My deepest ashirwad and heartfelt wishes will always be with you, lighting your path wherever you go. Happy Birthday, my amazing girl. May this year bring you everything you've ever hoped for.
                         </p>
-                        
+
                         <div class="text-right">
                             <p class="font-sans text-sm text-gray-500 uppercase tracking-widest mb-2">Forever Yours,</p>
-                            <p class="font-handwriting text-4xl font-bold text-dark">[Your Name Here] ❤️</p>
+                            <p class="font-handwriting text-4xl font-bold text-dark">Zafar 😎</p>
                         </div>
                     </div>
                 </div>
@@ -659,30 +1376,78 @@
         </section>
 
         <!-- ================= GRAND FINALE ================= -->
-        <section class="min-h-screen flex flex-col justify-center items-center relative z-10 px-6 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-primary/10 pb-20">
-            <div class="finale-content scale-95 opacity-0 gs-reveal">
-                <i class="ph-duotone ph-cake text-6xl text-gold mb-6 inline-block animate-bounce"></i>
-                <h2 class="font-serif text-6xl md:text-8xl text-white mb-6">Make A Wish</h2>
-                <p class="font-sans text-xl text-gray-300 font-light mb-12 tracking-wide">Close your eyes, think of your biggest dream...</p>
+        <section
+            class="min-h-screen flex flex-col justify-center items-center relative z-10 px-6 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-primary/10 pb-20">
+            <div class="finale-content scale-95 opacity-0 z-10 w-full flex flex-col items-center">
                 
-                <button onclick="triggerFinale()" class="btn-magical interactive">
-                    Blow the Candles ✨
-                </button>
+                <div class="finale-content-text mb-16">
+                    <h2 class="font-serif text-6xl md:text-8xl text-white mb-4 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">Make A Wish</h2>
+                    <p class="font-sans text-xl md:text-2xl text-gold font-light tracking-wide italic">"Hover to gather your breath. Click to blow out the candle."</p>
+                </div>
+
+                <!-- Interactive CSS Candle -->
+                <div class="candle-wrapper interactive" onclick="triggerFinale()">
+                    <div class="candle-glow" id="candle-glow"></div>
+                    <div class="candle-body"></div>
+                    <div class="candle-wick"></div>
+                    <div class="candle-flame" id="candle-flame"></div>
+                    <div class="candle-smoke" id="candle-smoke"></div>
+                </div>
             </div>
 
-            <!-- CURSOR FIX: Ensure the final screen doesn't block interactions by setting up pointer events appropriately -->
-            <div id="final-message" class="fixed inset-0 flex flex-col justify-center items-center bg-dark/95 backdrop-blur-2xl z-[100] px-6 text-center opacity-0 pointer-events-none transition-opacity duration-1000">
-                <div class="relative">
-                    <h1 class="font-serif text-6xl md:text-8xl font-bold mb-4 text-glow text-white">I Love You,</h1>
-                    <h1 class="font-script text-8xl md:text-[10rem] text-primary font-normal leading-none mb-8" style="text-shadow: 0 0 50px rgba(255,20,83,0.8);">Akanksha</h1>
-                </div>
-                <p class="font-sans text-xl md:text-2xl text-gold max-w-2xl mx-auto font-light mb-16 tracking-widest uppercase">To infinity and beyond.</p>
+            <!-- final screen -->
+            <div id="final-message"
+                class="fixed inset-0 flex flex-col justify-center items-center bg-dark/95 backdrop-blur-2xl z-[100] px-6 text-center opacity-0 pointer-events-none overflow-hidden">
                 
-                <div class="interactive flex flex-col items-center cursor-pointer group" onclick="closeFinale()">
-                    <div class="w-20 h-20 rounded-full border border-white/20 flex justify-center items-center group-hover:bg-white/10 group-hover:border-white/50 transition-all duration-300 mb-4">
-                        <i class="ph ph-arrow-counter-clockwise text-2xl text-white/50 group-hover:text-white group-hover:-rotate-90 transition-all duration-500"></i>
+                <!-- Editorial Frame -->
+                <div class="absolute inset-6 md:inset-12 border border-white/10 rounded-2xl pointer-events-none final-frame opacity-0 scale-95"></div>
+
+                <!-- Corner Text -->
+                <div class="absolute top-10 left-10 md:top-16 md:left-16 text-left opacity-0 final-micro hidden md:block">
+                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-gold">The Journey</span>
+                </div>
+                <div class="absolute top-10 right-10 md:top-16 md:right-16 text-right opacity-0 final-micro hidden md:block">
+                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-gold">Continues</span>
+                </div>
+
+                <!-- Massive Watermark -->
+                <div class="absolute inset-0 flex flex-col justify-center items-center z-0 pointer-events-none overflow-hidden opacity-30 select-none scale-110 final-watermark">
+                    <h1 class="font-serif text-[20vw] font-bold whitespace-nowrap leading-[0.85] text-outline">ALWAYS</h1>
+                    <h1 class="font-serif text-[20vw] font-bold whitespace-nowrap leading-[0.85] text-outline">ALWAYS</h1>
+                    <h1 class="font-serif text-[20vw] font-bold whitespace-nowrap leading-[0.85] text-outline">ALWAYS</h1>
+                </div>
+
+                <!-- Core Content -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <!-- Glowing Orb Behind -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-gradient-to-tr from-primary via-secondary to-gold rounded-full blur-[100px] opacity-0 final-glow pointer-events-none"></div>
+
+                    <!-- Slide Up Mask -->
+                    <div class="overflow-hidden mb-2">
+                        <h1 class="font-serif text-5xl md:text-7xl font-bold text-white tracking-wide final-text-1 translate-y-[100%]">I Love You,</h1>
                     </div>
-                    <span class="text-xs text-white/40 uppercase tracking-[0.2em]">Replay Magic</span>
+
+                    <!-- Massive Drop Name -->
+                    <div class="relative mb-10 overflow-visible">
+                        <h1 class="font-script text-8xl md:text-[12rem] text-primary font-normal leading-none drop-shadow-[0_20px_40px_rgba(255,20,83,0.8)] glare-text glare-joined final-name opacity-0 scale-150 transform -rotate-2">
+                            Akanksha
+                        </h1>
+                    </div>
+
+                    <!-- Slide Up Mask -->
+                    <div class="overflow-hidden mb-16">
+                        <p class="font-sans text-sm md:text-lg text-gold font-light tracking-[0.4em] uppercase final-text-2 translate-y-[100%]">
+                            To infinity and beyond.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Replay Button -->
+                <div class="interactive flex flex-col items-center cursor-pointer group final-replay opacity-0 translate-y-10 z-20" onclick="closeFinale()">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 flex justify-center items-center group-hover:bg-white/10 group-hover:border-gold/50 transition-all duration-500 mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                        <i class="ph ph-arrow-counter-clockwise text-2xl text-white/50 group-hover:text-gold group-hover:-rotate-180 transition-all duration-700"></i>
+                    </div>
+                    <span class="text-[10px] text-white/40 uppercase tracking-[0.3em] group-hover:text-gold transition-colors duration-500">Replay Magic</span>
                 </div>
             </div>
         </section>
@@ -690,12 +1455,23 @@
     </main>
 
     <script>
+        // === PREVENT SCROLL MEMORY & FORCE TOP ===
+        // This stops the browser from auto-scrolling down on refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
+        });
+
         // === OPTIMIZED CUSTOM CURSOR LOGIC ===
         const cursor = document.getElementById('custom-cursor');
         const dot = document.getElementById('cursor-dot');
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         let cursorX = mouseX, cursorY = mouseY;
-        
+
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
             gsap.set(dot, { x: mouseX, y: mouseY });
@@ -714,29 +1490,49 @@
             });
         }
 
+        // Initialize cursor immediately so it works on the preloader
+        initCursorHovers();
+
         // === PRELOADER LOGIC ===
         let currentTextIndex = 1;
-        const totalTexts = 4;
-        
+        const totalTexts = 3;
+
         window.addEventListener('load', () => {
+            // Instantly hide avatar to prep for cinematic rise
+            gsap.set('#avatar-container', { y: '15vh', scale: 0.9, opacity: 0 });
+            gsap.set('.avatar-spotlight', { scale: 0.5, opacity: 0 });
+
             const interval = setInterval(() => {
                 const current = document.getElementById(`load-text-${currentTextIndex}`);
-                if(current) {
+                if (current) {
                     current.classList.remove('active'); current.classList.add('exit');
                 }
                 currentTextIndex++;
                 if (currentTextIndex <= totalTexts) {
                     const next = document.getElementById(`load-text-${currentTextIndex}`);
                     next.classList.remove('enter'); next.classList.add('active');
+                } else {
+                    // Sequence Finished - Trigger Avatar Reveal
+                    clearInterval(interval);
                     
-                    if(currentTextIndex === totalTexts) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            document.querySelector('.loader-ring').style.opacity = '0';
-                            document.getElementById('enter-btn').classList.add('visible');
-                            initCursorHovers(); 
-                        }, 800);
-                    }
+                    const tl = gsap.timeline();
+                    tl.to('#preloader-ring', { opacity: 0, scale: 0.5, duration: 0.6, ease: "power2.inOut" })
+                      .to('.loading-text-container', { opacity: 0, duration: 0.4 }, "-=0.4")
+                      
+                      // Dramatic Avatar Reveal & UI pop in
+                      .to('.avatar-spotlight', { opacity: 1, scale: 1.2, duration: 2.5, ease: "power2.out" }, "-=0.2")
+                      .to('#avatar-container', { y: 0, scale: 1, opacity: 1, duration: 2.5, ease: 'expo.out' }, "-=2.5")
+                      .to('.preloader-ui', { opacity: 1, y: 10, duration: 1.5, stagger: 0.2, ease: "power2.out" }, "-=1.5")
+                      
+                      // Enter Button glides up gracefully
+                      .to('#enter-btn', { 
+                          opacity: 1, 
+                          visibility: 'visible', 
+                          pointerEvents: 'auto',
+                          y: 0, 
+                          duration: 1.5, 
+                          ease: "back.out(1.2)" 
+                      }, "-=1.5");
                 }
             }, 1800);
         });
@@ -747,30 +1543,67 @@
         const vinyl = document.getElementById('vinyl-record');
 
         function enterSite() {
+            // Absolute guarantee we are at the top before revealing the Hero Section
+            window.scrollTo(0, 0);
+
             audio.volume = 0.5;
             audio.play().then(() => { isPlaying = true; vinyl.classList.add('playing'); }).catch(e => console.log(e));
 
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
-            
+
             mainContent.style.visibility = 'visible';
-            initGSAP();
+            gsap.to(mainContent, { opacity: 1, duration: 0.5 });
             
-            gsap.to(preloader, { 
-                opacity: 0, 
-                duration: 1, 
-                ease: "power2.inOut",
+            // THE EPIC 3D FLY-THROUGH TRANSITION
+            const tl = gsap.timeline({
                 onComplete: () => {
                     preloader.style.display = 'none';
-                    gsap.to(mainContent, { opacity: 1, duration: 1 });
+                    document.body.classList.remove('no-scroll'); // Unlock scrolling ONLY when transition finishes!
+                    initGSAP();
                     initCursorHovers();
                     setTimeout(() => ScrollTrigger.refresh(), 500);
                 }
             });
+
+            tl.to('.preloader-ui', { opacity: 0, duration: 0.4 }, 0)
+              .to('#enter-btn', { scale: 0.8, opacity: 0, y: 20, duration: 0.4, ease: "back.in(1.5)" }, 0)
+              // The camera flies INTO the avatar's open arms
+              .to('#avatar-container', {
+                  scale: 6,        // Massive fly-through scale
+                  y: '30vh',
+                  opacity: 0,      // Fade into the cinematic light burst
+                  filter: "brightness(3) blur(20px)", // Flare effect
+                  duration: 1.5,
+                  ease: "expo.in"
+              }, 0.2)
+              .to('.avatar-spotlight', { scale: 3, opacity: 0, duration: 1.5, ease: "expo.in" }, 0.2)
+              .to(preloader, { opacity: 0, duration: 0.5 }, 1.4);
+
+            // Play the premium hero entry exactly as the light burst happens
+            setTimeout(() => { playHeroAnimation(); }, 1200);
+        }
+
+        // New Function for Premium Hero Entry Animation
+        function playHeroAnimation() {
+            const tl = gsap.timeline();
+            
+            // Set 3D perspective for the elegant image tilt reveal
+            gsap.set('.hero-img-frame', { transformPerspective: 1000 });
+
+            tl.from('.hero-watermark h1', { y: 60, opacity: 0, stagger: 0.2, duration: 2, ease: "expo.out" }, 0.1)
+              .from('.hero-editorial', { opacity: 0, filter: "blur(5px)", duration: 1.5, stagger: 0.2, ease: "power2.out" }, 0.3)
+              .from('.hero-img-frame', { y: 150, rotateX: 15, scale: 0.9, opacity: 0, duration: 2.5, ease: "expo.out" }, 0.5)
+              .from('.hero-subtitle', { y: 20, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power3.out" }, 0.9)
+              .from('.hero-happy', { x: -60, opacity: 0, filter: "blur(10px)", duration: 1.8, ease: "expo.out" }, 1.1)
+              .from('.hero-birthday', { x: 60, opacity: 0, filter: "blur(10px)", duration: 1.8, ease: "expo.out" }, 1.3)
+              .from('.hero-name-comp', { y: 100, scale: 1.15, opacity: 0, filter: "blur(10px)", rotateZ: 2, duration: 2.5, ease: "expo.out" }, 1.5)
+              .from('.hero-badge', { scale: 0.5, y: 30, opacity: 0, duration: 1.5, stagger: 0.2, ease: "back.out(1.2)" }, 1.8)
+              .from('.hero-bottom-comp', { y: 30, opacity: 0, duration: 1.5, ease: "power3.out" }, 2.2);
         }
 
         function toggleMusic() {
-            if (isPlaying) { audio.pause(); vinyl.classList.remove('playing'); } 
+            if (isPlaying) { audio.pause(); vinyl.classList.remove('playing'); }
             else { audio.play(); vinyl.classList.add('playing'); }
             isPlaying = !isPlaying;
         }
@@ -789,35 +1622,35 @@
         }
 
         function startFill(e) {
-            if(isFilled) return;
+            if (isFilled) return;
             // Add hover effect programmatically to hint interaction
             cursor.classList.add('hovering');
-            
+
             clearInterval(fillInterval);
             fillInterval = setInterval(() => {
                 fillProgress -= 1.5; // Fill speed
                 updateHeartFill();
-                
+
                 // Mild pulsing shake
                 const shake = Math.random() * 4 - 2;
                 heartTarget.parentElement.style.transform = `translateX(${shake}px) scale(1.05)`;
 
-                if(fillProgress <= 0) {
+                if (fillProgress <= 0) {
                     clearInterval(fillInterval);
                     isFilled = true;
                     fillProgress = 0;
                     updateHeartFill();
-                    
+
                     heartTarget.parentElement.style.transform = `translateX(0px) scale(1.2)`;
                     outlineHeart.style.opacity = '0';
-                    
+
                     // Confetti Pop
                     confetti({ particleCount: 40, spread: 70, origin: { y: 0.6 }, colors: ['#ff1453', '#e2c57a'] });
-                    
+
                     // Reveal Message
                     secretMsg.classList.remove('opacity-0', 'translate-y-4');
                     secretMsg.classList.add('opacity-100', 'translate-y-0');
-                    
+
                     // Remove cursor hover state since it's "done"
                     cursor.classList.remove('hovering');
                 }
@@ -825,14 +1658,14 @@
         }
 
         function stopFill() {
-            if(isFilled) return;
+            if (isFilled) return;
             cursor.classList.remove('hovering');
             clearInterval(fillInterval);
             heartTarget.parentElement.style.transform = `translateX(0px) scale(1)`;
-            
+
             fillInterval = setInterval(() => {
                 fillProgress += 3; // Drain speed
-                if(fillProgress >= 100) {
+                if (fillProgress >= 100) {
                     fillProgress = 100;
                     clearInterval(fillInterval);
                 }
@@ -841,7 +1674,7 @@
         }
 
         heartTarget.addEventListener('mousedown', startFill);
-        heartTarget.addEventListener('touchstart', startFill, {passive: true});
+        heartTarget.addEventListener('touchstart', startFill, { passive: true });
         window.addEventListener('mouseup', stopFill);
         window.addEventListener('touchend', stopFill);
 
@@ -856,21 +1689,44 @@
             });
 
             gsap.utils.toArray('.gs-reveal').forEach(elem => {
-                gsap.fromTo(elem, 
+                gsap.fromTo(elem,
                     { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
-                      scrollTrigger: { trigger: elem, start: "top 85%", toggleActions: "play none none reverse" }
+                    {
+                        y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                        scrollTrigger: { trigger: elem, start: "top 85%", toggleActions: "play none none reverse" }
                     }
                 );
+            });
+
+            // CUSTOM STORY ANIMATIONS (NEW ORCHESTRATION)
+            gsap.utils.toArray('.story-chapter').forEach((chapter, i) => {
+                const num = chapter.querySelector('.story-num');
+                const portal = chapter.querySelector('.story-portal');
+                const textContainer = chapter.querySelector('.story-text-container');
+                const node = chapter.querySelector('.story-node');
+                const isLeft = i % 2 !== 0;
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: chapter,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+
+                tl.from(num, { scale: 0.5, opacity: 0, duration: 1.5, ease: "power4.out" }, 0)
+                  .from(portal, { x: isLeft ? -100 : 100, rotate: isLeft ? -15 : 15, opacity: 0, duration: 1.2, ease: "back.out(1.2)" }, 0.2)
+                  .from(node, { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(2)" }, 0.6)
+                  .from(textContainer.children, { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out" }, 0.4);
             });
 
             // FIXED HORIZONTAL SCROLL
             const galleryWrapper = document.querySelector('.horizontal-scroll-wrapper');
             const galleryTrack = document.querySelector('#gallery-track');
-            
-            if(galleryTrack && galleryWrapper) {
+
+            if (galleryTrack && galleryWrapper) {
                 let getScrollAmount = () => galleryTrack.scrollWidth - window.innerWidth;
-                
+
                 ScrollTrigger.create({
                     trigger: galleryWrapper,
                     start: "top top",
@@ -881,30 +1737,34 @@
                         ease: "none"
                     }),
                     scrub: 1,
-                    invalidateOnRefresh: true 
+                    invalidateOnRefresh: true
                 });
             }
 
+            // Timeline line animation (updated class trigger)
             gsap.to('#timeline-progress-bar', {
                 height: '100%', ease: 'none',
-                scrollTrigger: { trigger: '.timeline-container', start: 'top center', end: 'bottom center', scrub: true }
+                scrollTrigger: { trigger: '#story-section', start: 'top center', end: 'bottom center', scrub: true }
             });
-            
-            gsap.to('.finale-content', {
-                scrollTrigger: { trigger: '.finale-content', start: "top 75%" },
-                scale: 1, opacity: 1, duration: 1.5, ease: "elastic.out(1, 0.5)"
-            });
+
+            gsap.fromTo('.finale-content', 
+                { scale: 0.95, opacity: 0 },
+                {
+                    scale: 1, opacity: 1, duration: 1.5, ease: "elastic.out(1, 0.5)",
+                    scrollTrigger: { trigger: '.finale-content', start: "top 75%" }
+                }
+            );
         }
 
         // === INTERACTIVE LETTER ===
         function openLetter(element) {
             const seal = element.querySelector('.wax-seal');
             const letter = element.querySelector('.letter-content');
-            
-            if(!seal.classList.contains('broken')) {
+
+            if (!seal.classList.contains('broken')) {
                 seal.classList.add('broken');
-                setTimeout(() => { letter.classList.add('open'); }, 400); 
-                
+                setTimeout(() => { letter.classList.add('open'); }, 400);
+
                 confetti({
                     particleCount: 40, spread: 60, origin: { y: 0.6 },
                     colors: ['#990011', '#e2c57a', '#ff1453'], disableForReducedMotion: true
@@ -914,41 +1774,112 @@
 
         // === FINALE LOGIC ===
         function triggerFinale() {
-            // Hide cursor momentarily for cinematic confetti effect
-            cursor.style.opacity = '0'; 
-            dot.style.opacity = '0';
-            
-            const duration = 4000; const end = Date.now() + duration;
-            const colors = ['#ff1453', '#ff6b8b', '#ffffff', '#e2c57a'];
+            const flame = document.getElementById('candle-flame');
+            const smoke = document.getElementById('candle-smoke');
+            const glow = document.getElementById('candle-glow');
 
-            (function frame() {
-                confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
-                confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
-                
-                if (Date.now() < end) { 
-                    requestAnimationFrame(frame); 
-                } else {
-                    const finalScreen = document.getElementById('final-message');
-                    finalScreen.style.pointerEvents = 'auto';
-                    gsap.to(finalScreen, { opacity: 1, duration: 2, ease: "power2.inOut" });
-                    
-                    // CRITICAL FIX: Restore custom cursor visibility so the user can click "Replay Magic"
-                    if (window.matchMedia("(pointer: fine)").matches) {
-                        cursor.style.opacity = '1'; 
-                        dot.style.opacity = '1';
+            // CRITICAL: Lock scrolling immediately to keep focus on the finale
+            document.body.classList.add('no-scroll');
+
+            // Hide cursor momentarily for cinematic effect
+            gsap.to([cursor, dot], { opacity: 0, duration: 0.3 });
+
+            // 1. Blow out the candle visually
+            flame.style.opacity = '0';
+            flame.style.transform = 'scale(0) translateY(-20px)';
+            glow.style.opacity = '0';
+
+            // 2. Trigger smoke puff
+            smoke.style.opacity = '0.6';
+            smoke.style.transform = 'translateY(-60px) scale(2.5)';
+
+            // 3. Fade out the text instructions
+            gsap.to('.finale-content-text', { opacity: 0, duration: 1 });
+
+            // 4. Dramatic Lights Out (Dim the ambient background and particles)
+            gsap.to('.ambient-bg', { opacity: 0, duration: 1.5 });
+            gsap.to('#particle-canvas', { opacity: 0.1, duration: 1.5 });
+
+            // 5. Suspenseful Pause before the explosion
+            setTimeout(() => {
+                const duration = 5000; const end = Date.now() + duration;
+                const colors = ['#ff1453', '#ff6b8b', '#ffffff', '#e2c57a'];
+
+                (function frame() {
+                    // Elevated z-index to ensure confetti shows above the dark overlay
+                    confetti({ particleCount: 7, angle: 60, spread: 60, origin: { x: 0 }, colors: colors, zIndex: 10000 });
+                    confetti({ particleCount: 7, angle: 120, spread: 60, origin: { x: 1 }, colors: colors, zIndex: 10000 });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        const finalScreen = document.getElementById('final-message');
+                        finalScreen.style.pointerEvents = 'auto';
+                        finalScreen.style.opacity = '1';
+
+                        // Premium GSAP orchestration for the final screen
+                        playFinalAnimation();
+
+                        // CRITICAL FIX: Restore custom cursor visibility with GSAP for reliability
+                        if (window.matchMedia("(pointer: fine)").matches) {
+                            gsap.to([cursor, dot], { opacity: 1, duration: 0.5 });
+                        }
                     }
-                }
-            }());
+                }());
+            }, 1500); // 1.5 seconds of darkness before the explosion!
+        }
+
+        // New function specifically for orchestrating the final message reveal
+        function playFinalAnimation() {
+            const tl = gsap.timeline();
+
+            tl.to('.final-frame', { opacity: 1, scale: 1, duration: 2, ease: "expo.out" }, 0)
+              .fromTo('.final-watermark h1', { y: 100, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 2, ease: "power3.out" }, 0.2)
+              .to('.final-glow', { opacity: 0.4, scale: 1.2, duration: 3, ease: "power2.out" }, 0.5)
+              .to('.final-text-1', { y: 0, duration: 1.5, ease: "expo.out" }, 0.8)
+              .to('.final-name', { opacity: 1, scale: 1, duration: 2, ease: "elastic.out(1, 0.5)" }, 1)
+              .to('.final-text-2', { y: 0, duration: 1.5, ease: "expo.out" }, 1.4)
+              .to('.final-micro', { opacity: 0.6, duration: 1, stagger: 0.2 }, 1.6)
+              .to('.final-replay', { y: 0, opacity: 1, duration: 1.5, ease: "back.out(1.5)" }, 2);
         }
 
         function closeFinale() {
             const finalScreen = document.getElementById('final-message');
+            
+            // Unlock scrolling
+            document.body.classList.remove('no-scroll');
+            
+            // Fade out the entire screen
             gsap.to(finalScreen, {
                 opacity: 0, duration: 1,
-                onComplete: () => { 
+                onComplete: () => {
                     finalScreen.style.pointerEvents = 'none';
+                    
+                    // Reset elements for next time so the mask reveal plays again
+                    gsap.set(['.final-text-1', '.final-text-2'], { y: '100%' });
+                    gsap.set('.final-name', { opacity: 0, scale: 1.5 });
+                    gsap.set('.final-frame', { opacity: 0, scale: 0.95 });
+                    gsap.set('.final-glow', { opacity: 0, scale: 1 });
+                    gsap.set('.final-micro', { opacity: 0 });
+                    gsap.set('.final-replay', { y: 40, opacity: 0 });
                 }
             });
+
+            // Turn the lights back on if she replays
+            gsap.to('.ambient-bg', { opacity: 1, duration: 2 });
+            gsap.to('#particle-canvas', { opacity: 0.8, duration: 2 });
+            
+            // Reset Candle
+            const flame = document.getElementById('candle-flame');
+            const smoke = document.getElementById('candle-smoke');
+            const glow = document.getElementById('candle-glow');
+            flame.style.opacity = '1';
+            flame.style.transform = 'translateX(-50%) scale(1)';
+            glow.style.opacity = '0.5';
+            smoke.style.opacity = '0';
+            smoke.style.transform = 'translateX(-50%) scale(0.5)';
+            
+            gsap.to('.finale-content-text', { opacity: 1, duration: 1 });
         }
 
         // === HIGH PERFORMANCE CANVAS ENGINE ===
@@ -959,17 +1890,17 @@
 
         window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
         window.addEventListener('mouseout', () => { mouse.x = undefined; mouse.y = undefined; });
-        
+
         let resizeTimeout;
-        window.addEventListener('resize', () => { 
+        window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                canvas.width = window.innerWidth; canvas.height = window.innerHeight; 
-                initParticles(); 
-                ScrollTrigger.refresh(); 
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                initParticles();
+                ScrollTrigger.refresh();
             }, 200);
         });
-        
+
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
         class Particle {
@@ -977,7 +1908,7 @@
                 this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 0.5;
                 this.density = (Math.random() * 30) + 1;
-                this.speedY = Math.random() * -0.3 - 0.1; 
+                this.speedY = Math.random() * -0.3 - 0.1;
                 this.speedX = Math.random() * 0.4 - 0.2;
                 this.opacity = Math.random() * 0.6 + 0.1;
                 this.color = Math.random() > 0.5 ? '#ff1453' : (Math.random() > 0.5 ? '#e2c57a' : '#ff6b8b');
@@ -992,17 +1923,17 @@
             }
             update() {
                 this.y += this.speedY; this.x += this.speedX;
-                
+
                 if (mouse.x != null) {
                     let dx = mouse.x - this.x, dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
                     if (distance < mouse.radius) {
                         const force = (mouse.radius - distance) / mouse.radius;
-                        this.x -= (dx / distance) * force * this.density * 0.5; 
+                        this.x -= (dx / distance) * force * this.density * 0.5;
                         this.y -= (dy / distance) * force * this.density * 0.5;
                     }
                 }
-                
+
                 if (this.y < 0) { this.y = canvas.height; this.x = Math.random() * canvas.width; }
                 if (this.x < 0 || this.x > canvas.width) { this.speedX = -this.speedX; }
             }
@@ -1015,11 +1946,11 @@
         }
 
         function animateParticles() {
-            ctx.fillStyle = '#030104'; 
+            ctx.fillStyle = '#030104';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) { 
-                particlesArray[i].draw(); 
-                particlesArray[i].update(); 
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].draw();
+                particlesArray[i].update();
             }
             requestAnimationFrame(animateParticles);
         }
@@ -1027,4 +1958,5 @@
 
     </script>
 </body>
+
 </html>
