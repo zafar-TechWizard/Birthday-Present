@@ -1,0 +1,15 @@
+{
+  "name": "birthday-present-akanksha",
+  "version": "1.0.0",
+  "description": "A digital birthday masterpiece created for Akanksha.",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'No build step required for this static project'"
+  },
+  "keywords": [],
+  "author": "Zafar",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
