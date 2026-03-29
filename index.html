@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Akanksha ❤️</title>
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Caveat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Animation Libraries (GSAP Core + ScrollTrigger) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#030104',
+                        primary: '#ff1453',
+                        secondary: '#ff6b8b',
+                        gold: '#e2c57a',
+                        glass: 'rgba(255, 255, 255, 0.04)',
+                        glassBorder: 'rgba(255, 255, 255, 0.1)',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        handwriting: ['Caveat', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* === BASE STYLES & OPTIMIZATIONS === */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #030104;
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #030104;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff1453;
+            border-radius: 10px;
+        }
+
+        ::selection {
+            background: #ff1453;
+            color: white;
+        }
+
+        /* Disable custom cursor on touch devices for better mobile performance */
+        @media (pointer: coarse) {
+
+            body,
+            .interactive,
+            button,
+            a {
+                cursor: auto !important;
+            }
+
+            #custom-cursor,
+            #cursor-dot {
+                display: none !important;
+            }
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255, 107, 139, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, opacity 0.4s ease;
+            will-change: transform, width, height, opacity;
+        }
+
+        #custom-cursor.hovering {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 20, 83, 0.1);
+            border-color: #ff1453;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            box-shadow: 0 0 10px #ff1453, 0 0 20px #ff1453;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.4s ease;
+            will-change: transform, opacity;
+        }
+
+        /* === OPTIMIZED AMBIENT BACKGROUND === */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatOrb 25s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(255, 20, 83, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
+            top: -20%;
+            left: -20%;
+        }
+
+        .orb-2 {
+            width: 90vw;
+            height: 90vw;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, rgba(0, 0, 0, 0) 60%);
+            bottom: -30%;
+            right: -20%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(226, 197, 122, 0.08) 0%, rgba(0, 0, 0, 0) 60%);
+            top: 30%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate3d(3%, 5%, 0) scale(1.05);
+            }
+
+            66% {
+                transform: translate3d(-3%, 3%, 0) scale(0.95);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+        }
+
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* === ADVANCED GLASSMORPHISM === */
+        .glass-premium {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top-color: rgba(255, 255, 255, 0.2);
+            border-left-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .glass-premium::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 20, 83, 0.6);
+        }
+
+        /* === PRELOADER === */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: #030104;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .loader-ring {
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(255, 20, 83, 0.1);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-ring::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #ff1453;
+            border-right-color: #ff6b8b;
+            animation: spin 1.5s linear infinite;
+        }
+
+        .heart-pulse {
+            color: #ff1453;
+            font-size: 2rem;
+            animation: pulse 1s infinite;
+        }
+
+        .loading-text-container {
+            height: 30px;
+            overflow: hidden;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .loading-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .loading-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-text.exit {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .loading-text.enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        #enter-btn {
+            opacity: 0;
+            pointer-events: none;
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: rgba(255, 20, 83, 0.1);
+            border: 1px solid rgba(255, 20, 83, 0.5);
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            color: white;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            cursor: none;
+        }
+
+        #enter-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #enter-btn:hover {
+            background: rgba(255, 20, 83, 0.3);
+            box-shadow: 0 0 20px rgba(255, 20, 83, 0.4);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(0.9);
+            }
+
+            50% {
+                transform: scale(1.2);
+                text-shadow: 0 0 20px #ff1453;
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* === EXPANDING PROMISES CARDS === */
+        .promise-card {
+            flex: 1;
+            transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+        }
+
+        @media (min-width: 768px) {
+            .promise-card:hover {
+                flex: 2.5;
+                box-shadow: 0 10px 40px rgba(255, 20, 83, 0.2);
+            }
+        }
+
+        /* Mobile handling */
+        @media (max-width: 767px) {
+            .promise-card {
+                height: 180px;
+                flex: none !important;
+            }
+
+            .promise-card:active {
+                transform: scale(0.98);
+            }
+
+            .promise-card:hover h3 {
+                margin-bottom: 0.5rem;
+            }
+
+            .promise-card:hover p {
+                opacity: 1;
+                height: auto;
+                margin-top: 10px;
+            }
+        }
+
+        /* === BENTO GRID SECTION === */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .bento-item {
+            border-radius: 24px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: none;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 20, 83, 0.2);
+        }
+
+        .bento-large {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .bento-large {
+                grid-column: span 1;
+            }
+        }
+
+        /* === HORIZONTAL SCROLL GALLERY === */
+        .horizontal-scroll-wrapper {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: rgba(3, 1, 4, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            padding: 0 10vw;
+            gap: 5vw;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .gallery-item {
+            width: 50vw;
+            min-width: 320px;
+            max-width: 600px;
+            height: 60vh;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            cursor: none;
+            transform: translateZ(0);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 0;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 30px 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* === INTERACTIVE LETTER === */
+        .letter-section {
+            perspective: 1200px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            cursor: none;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #990011, #4d0008);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 10px 20px rgba(255, 20, 83, 0.5);
+            transition: all 0.5s ease;
+            border: 2px solid #ff1453;
+        }
+
+        .envelope-wrapper:hover .wax-seal {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 10px 30px #ff1453;
+        }
+
+        .wax-seal.broken {
+            transform: translateX(-50%) scale(2);
+            opacity: 0;
+            pointer-events: none;
+            filter: blur(10px);
+        }
+
+        .letter-content {
+            background: #fdfbf7;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: #2c2c2c;
+            padding: 4rem;
+            border-radius: 10px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: rotateX(-90deg);
+            transform-origin: top;
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .letter-content.open {
+            max-height: 2000px;
+            opacity: 1;
+            transform: rotateX(0deg);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .letter-content {
+                padding: 2rem;
+            }
+        }
+
+        /* Floating Music Player */
+        #music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vinyl {
+            width: 60px;
+            height: 60px;
+            background: #111;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #ff1453;
+            border-radius: 50%;
+            box-shadow: inset 0 0 5px #000;
+        }
+
+        .vinyl.playing {
+            animation: spin 3s linear infinite;
+            border-color: #ff1453;
+            box-shadow: 0 0 20px rgba(255, 20, 83, 0.4);
+        }
+
+        .music-info {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        #music-player:hover .music-info {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* === PREMIUM BUTTON === */
+        .btn-magical {
+            position: relative;
+            padding: 20px 50px;
+            background: transparent;
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+            cursor: none;
+            box-shadow: 0 0 20px rgba(255, 20, 83, 0.2);
+        }
+
+        .btn-magical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff1453, #ff6b8b);
+            z-index: -1;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-magical:hover::before {
+            width: 100%;
+        }
+
+        .btn-magical:hover {
+            box-shadow: 0 0 40px rgba(255, 20, 83, 0.6);
+            border-color: transparent;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-dot"></div>
+
+    <!-- Background Music Player -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+    <div id="music-player" class="interactive" onclick="toggleMusic()">
+        <div class="music-info">
+            <span class="text-xs font-sans tracking-widest uppercase text-gray-300">Playing our song</span>
+        </div>
+        <div class="vinyl" id="vinyl-record"></div>
+    </div>
+
+    <!-- Multi-Step Preloader -->
+    <div id="preloader">
+        <div class="loader-ring">
+            <i class="ph-fill ph-heart heart-pulse"></i>
+        </div>
+        <div class="loading-text-container">
+            <div class="loading-text active" id="load-text-1">Gathering stardust...</div>
+            <div class="loading-text enter" id="load-text-2">Tuning the strings...</div>
+            <div class="loading-text enter" id="load-text-3">Waking up the butterflies...</div>
+            <div class="loading-text enter" id="load-text-4">Ready for you, Akanksha.</div>
+        </div>
+        <button id="enter-btn" class="interactive" onclick="enterSite()">Tap to Open Your Present</button>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <main id="main-content" style="opacity: 0; visibility: hidden; width: 100%; overflow: hidden;">
+
+        <!-- Global Progress Bar -->
+        <div class="fixed top-0 left-0 w-full h-1 bg-white/5 z-50">
+            <div id="scroll-progress"
+                class="h-full bg-gradient-to-r from-gold via-secondary to-primary w-0 box-shadow-[0_0_10px_#ff1453]">
+            </div>
+        </div>
+
+        <!-- ================= HERO SECTION ================= -->
+        <section class="min-h-screen flex flex-col justify-center items-center relative px-6 text-center">
+            <div class="hero-content relative z-10 flex flex-col items-center">
+                <p class="font-cinzel text-gold tracking-[0.4em] uppercase text-sm md:text-base mb-6 gs-reveal">A
+                    Masterpiece Created For You</p>
+                <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl font-bold mb-2 text-glow gs-reveal leading-none">
+                    Happy Birthday,<br>
+                </h1>
+                <h1 class="font-script text-8xl md:text-[12rem] text-primary font-normal capitalize gs-reveal"
+                    style="text-shadow: 0 10px 30px rgba(255,20,83,0.4); line-height: 0.8;">
+                    Akanksha
+                </h1>
+                <p
+                    class="font-sans font-light text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mt-12 gs-reveal">
+                    This is your digital universe. A place dedicated entirely to the most beautiful girl in the world.
+                    Scroll down and let the magic unfold.
+                </p>
+            </div>
+
+            <div
+                class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60 flex flex-col items-center gap-2">
+                <span class="font-sans text-xs tracking-[0.3em] uppercase text-gray-400">Begin Journey</span>
+                <i class="ph ph-caret-down text-2xl text-primary"></i>
+            </div>
+        </section>
+
+        <!-- ================= BENTO GRID: REASONS I LOVE YOU ================= -->
+        <section class="py-32 px-6 relative z-10">
+            <div class="text-center mb-20 gs-reveal">
+                <h2 class="font-serif text-5xl md:text-6xl mb-4 text-white">The Little Things</h2>
+                <p class="font-sans text-primary font-light tracking-[0.2em] uppercase text-sm">Why you are my favorite
+                    human</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-item glass-premium bento-large gs-reveal interactive group">
+                    <i
+                        class="ph-duotone ph-sparkle text-4xl text-gold mb-4 group-hover:rotate-12 transition-transform"></i>
+                    <h3 class="font-cinzel text-2xl text-white mb-2">Your Smile</h3>
+                    <p class="font-sans text-gray-300 font-light leading-relaxed">It literally brightens my darkest
+                        days. The moment you smile, everything else stops mattering.</p>
+                </div>
+
+                <div class="bento-item glass-premium gs-reveal interactive group">
+                    <i
+                        class="ph-duotone ph-eyes text-4xl text-secondary mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-cinzel text-xl text-white mb-2">Your Eyes</h3>
+                    <p class="font-sans text-gray-300 font-light text-sm">I could get lost in them forever. They hold so
+                        much warmth and kindness.</p>
+                </div>
+
+                <div class="bento-item glass-premium gs-reveal interactive group">
+                    <i
+                        class="ph-duotone ph-brain text-4xl text-primary mb-4 group-hover:-translate-y-2 transition-transform"></i>
+                    <h3 class="font-cinzel text-xl text-white mb-2">Your Mind</h3>
+                    <p class="font-sans text-gray-300 font-light text-sm">The way you think, your intelligence, and your
+                        perspective on the world amaze me.</p>
+                </div>
+
+                <div class="bento-item glass-premium bento-large gs-reveal interactive group">
+                    <i
+                        class="ph-duotone ph-heart-beat text-4xl text-gold mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-cinzel text-2xl text-white mb-2">Your Beautiful Soul</h3>
+                    <p class="font-sans text-gray-300 font-light leading-relaxed">You care so deeply about others. Your
+                        heart is so pure, and being loved by you is my greatest blessing.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NEW: PROMISES (EXPANDING CARDS) ================= -->
+        <section class="py-32 px-6 relative z-10 max-w-6xl mx-auto">
+            <div class="text-center mb-16 gs-reveal">
+                <h2 class="font-serif text-5xl md:text-6xl mb-4 text-white">My Promises</h2>
+                <p class="font-sans text-gold font-light tracking-widest uppercase text-sm mt-2">Hover to reveal</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row h-auto md:h-[500px] gap-6 w-full gs-reveal">
+
+                <!-- Promise 1 -->
+                <div class="promise-card glass-premium rounded-[2rem] p-8 relative overflow-hidden group interactive">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
+                    <div class="h-full flex flex-col justify-end relative z-10">
+                        <i
+                            class="ph-duotone ph-ear text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                        <h3
+                            class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">
+                            To Always Listen</h3>
+                        <p
+                            class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
+                            Even to the smallest things, because everything you say matters to me.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Promise 2 -->
+                <div class="promise-card glass-premium rounded-[2rem] p-8 relative overflow-hidden group interactive">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-secondary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
+                    <div class="h-full flex flex-col justify-end relative z-10">
+                        <i
+                            class="ph-duotone ph-shield-check text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                        <h3
+                            class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">
+                            To Be Your Peace</h3>
+                        <p
+                            class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
+                            In a chaotic world, I promise to always be your safe haven and your comfort zone.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Promise 3 -->
+                <div class="promise-card glass-premium rounded-[2rem] p-8 relative overflow-hidden group interactive">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
+                    <div class="h-full flex flex-col justify-end relative z-10">
+                        <i
+                            class="ph-duotone ph-hands-clapping text-5xl text-gold mb-4 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                        <h3
+                            class="font-cinzel text-2xl text-white transition-all duration-500 truncate whitespace-nowrap">
+                            To Celebrate You</h3>
+                        <p
+                            class="font-sans text-gray-300 font-light opacity-0 h-0 overflow-hidden group-hover:h-[80px] group-hover:opacity-100 transition-all duration-500 mt-0 group-hover:mt-2">
+                            Not just today, but every single day. I will always be your biggest cheerleader.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= OPTIMIZED CINEMATIC HORIZONTAL GALLERY ================= -->
+        <section class="horizontal-scroll-wrapper relative z-10 mt-20 border-y border-white/5">
+            <div class="absolute top-10 left-10 md:left-20 z-20 pointer-events-none">
+                <h2 class="font-serif text-5xl md:text-7xl text-white/40">Memory Lane</h2>
+            </div>
+
+            <div class="gallery-track" id="gallery-track">
+
+                <div class="gallery-item interactive">
+                    <div class="gallery-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83164ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Memory">
+                    <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
+                        <h4 class="font-handwriting text-3xl text-white">The beginning of us</h4>
+                        <p class="font-sans text-sm text-gray-300 mt-2">When I first knew you were the one.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item interactive">
+                    <div class="gallery-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1606905502111-e6e166699317?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Memory">
+                    <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
+                        <h4 class="font-handwriting text-3xl text-gold">Our adventures</h4>
+                        <p class="font-sans text-sm text-gray-300 mt-2">Every place is beautiful with you.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item interactive">
+                    <div class="gallery-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Memory">
+                    <div class="gallery-caption glass-premium rounded-b-20 border-0 border-t">
+                        <h4 class="font-handwriting text-3xl text-secondary">Just laughing</h4>
+                        <p class="font-sans text-sm text-gray-300 mt-2">My favorite sound in the world.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="gallery-item interactive flex items-center justify-center bg-gradient-to-br from-primary/20 to-dark border border-white/10 rounded-2xl">
+                    <div class="text-center p-8">
+                        <i class="ph-duotone ph-infinity text-6xl text-gold mb-4"></i>
+                        <h4 class="font-serif text-4xl text-white">Many more to come...</h4>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TIMELINE SECTION ================= -->
+        <section class="py-32 px-6 md:px-12 relative z-10 max-w-5xl mx-auto">
+            <div class="text-center mb-24 gs-reveal">
+                <h2 class="font-serif text-5xl md:text-6xl mb-4 text-white">Our Story</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+            </div>
+
+            <div class="relative py-10 timeline-container">
+                <div
+                    class="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 shadow-[0_0_15px_rgba(255,20,83,0.5)]">
+                    <div id="timeline-progress-bar"
+                        class="absolute top-0 left-0 w-full h-0 bg-gradient-to-b from-gold to-primary"></div>
+                </div>
+
+                <div class="mb-24 md:w-1/2 md:pr-12 md:ml-0 relative gs-reveal interactive">
+                    <div
+                        class="hidden md:block absolute right-[-7px] top-1/2 w-4 h-4 rounded-full bg-dark border-2 border-gold z-10 box-shadow-[0_0_10px_#e2c57a]">
+                    </div>
+                    <div
+                        class="glass-premium p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-500 text-right">
+                        <span
+                            class="font-sans text-gold font-semibold tracking-widest text-xs uppercase mb-2 block">Chapter
+                            1</span>
+                        <h3 class="font-serif text-3xl text-white mb-3">The Day We Met</h3>
+                        <p class="font-sans text-gray-300 font-light text-sm leading-relaxed">You walked in, and
+                            everything else faded. I didn't know then that you would become my whole world.</p>
+                    </div>
+                </div>
+
+                <div class="mb-24 md:w-1/2 md:pl-12 md:ml-auto relative gs-reveal interactive">
+                    <div
+                        class="hidden md:block absolute left-[-9px] top-1/2 w-4 h-4 rounded-full bg-dark border-2 border-secondary z-10 box-shadow-[0_0_10px_#ff6b8b]">
+                    </div>
+                    <div
+                        class="glass-premium p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-500 text-left">
+                        <span
+                            class="font-sans text-secondary font-semibold tracking-widest text-xs uppercase mb-2 block">Chapter
+                            2</span>
+                        <h3 class="font-serif text-3xl text-white mb-3">Falling For You</h3>
+                        <p class="font-sans text-gray-300 font-light text-sm leading-relaxed">Late-night talks, endless
+                            laughter. Every day, I found a new reason to fall deeper in love with you.</p>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 md:pr-12 md:ml-0 relative gs-reveal interactive">
+                    <div
+                        class="hidden md:block absolute right-[-7px] top-1/2 w-4 h-4 rounded-full bg-primary box-shadow-[0_0_20px_#ff1453] z-10 animate-pulse">
+                    </div>
+                    <div
+                        class="glass-premium p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-500 text-right border-primary/30">
+                        <span
+                            class="font-sans text-primary font-semibold tracking-widest text-xs uppercase mb-2 block">Right
+                            Now</span>
+                        <h3 class="font-serif text-3xl text-white mb-3">Your Birthday</h3>
+                        <p class="font-sans text-gray-300 font-light text-sm leading-relaxed">Celebrating the most
+                            incredible person I know. And this is still just the beginning of our story.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= NEW: HOLD TO REVEAL ================= -->
+        <section
+            class="py-32 px-6 relative z-10 flex flex-col items-center justify-center min-h-[50vh] border-y border-white/5 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
+            <div class="text-center mb-10 gs-reveal">
+                <h2 class="font-serif text-4xl text-white">A Little Secret</h2>
+                <p class="font-sans text-sm text-primary font-light uppercase tracking-widest mt-2">Click and hold the
+                    heart to unlock</p>
+            </div>
+
+            <div class="relative w-48 h-48 flex justify-center items-center gs-reveal interactive"
+                id="magic-heart-container">
+                <!-- Outline Heart -->
+                <i class="ph ph-heart text-8xl text-white/20 absolute z-10 pointer-events-none transition-opacity duration-300"
+                    id="outline-heart"></i>
+
+                <!-- Fill Heart -->
+                <div class="absolute inset-0 flex justify-center items-center overflow-hidden pointer-events-none"
+                    style="clip-path: inset(100% 0 0 0);" id="magic-heart-fill">
+                    <i class="ph-fill ph-heart text-8xl text-primary drop-shadow-[0_0_30px_#ff1453]"></i>
+                </div>
+
+                <!-- Interaction Target -->
+                <div class="absolute inset-4 rounded-full z-20" id="heart-touch-target"></div>
+            </div>
+
+            <!-- Hidden Message -->
+            <div id="secret-message"
+                class="opacity-0 translate-y-4 transition-all duration-1000 mt-10 text-center absolute pointer-events-none">
+                <p class="font-handwriting text-4xl md:text-5xl text-gold">"You are my today and all of my tomorrows."
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= THE SEALED LETTER ================= -->
+        <section class="py-32 px-6 relative z-10 flex flex-col justify-center items-center">
+            <div class="text-center mb-16 gs-reveal">
+                <i class="ph-duotone ph-envelope-open text-5xl text-gold mb-4"></i>
+                <h2 class="font-serif text-5xl md:text-6xl text-white">A Letter For You</h2>
+                <p class="font-sans text-gray-400 font-light tracking-wide mt-2">Click the wax seal to open</p>
+            </div>
+
+            <div class="max-w-3xl w-full letter-section gs-reveal">
+                <div class="envelope-wrapper interactive" onclick="openLetter(this)">
+
+                    <div class="wax-seal">
+                        <i class="ph-fill ph-heart text-3xl text-white/80"></i>
+                    </div>
+
+                    <div class="letter-content relative">
+                        <div class="absolute top-4 left-4 w-10 h-10 border-t-2 border-l-2 border-gold/40"></div>
+                        <div class="absolute bottom-4 right-4 w-10 h-10 border-b-2 border-r-2 border-gold/40"></div>
+
+                        <h2 class="font-script text-5xl md:text-6xl text-primary mb-8 text-center">My Dearest Akanksha,
+                        </h2>
+
+                        <p class="font-serif text-xl md:text-2xl text-gray-800 leading-relaxed mb-6 italic">
+                            They say that if you want to know how much you love someone, you should imagine your life
+                            without them. But I can't. Because my life only truly started the moment you became a part
+                            of it.
+                        </p>
+                        <p class="font-sans text-base md:text-lg text-gray-700 leading-relaxed mb-6 font-light">
+                            Today is so special because it's the day the universe decided to create my soulmate. You are
+                            breathtakingly beautiful, inside and out. Your kindness inspires me, your strength amazes
+                            me, and your love makes me the happiest man alive.
+                        </p>
+                        <p class="font-sans text-base md:text-lg text-gray-700 leading-relaxed mb-10 font-light">
+                            I promise to always hold your hand, to celebrate your victories, and to be your safe place.
+                            Happy Birthday, my beautiful girl. Let's make this year unforgettable.
+                        </p>
+
+                        <div class="text-right">
+                            <p class="font-sans text-sm text-gray-500 uppercase tracking-widest mb-2">Forever Yours,</p>
+                            <p class="font-handwriting text-4xl font-bold text-dark">[Your Name Here] ❤️</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= GRAND FINALE ================= -->
+        <section
+            class="min-h-screen flex flex-col justify-center items-center relative z-10 px-6 text-center border-t border-white/5 bg-gradient-to-b from-transparent to-primary/10 pb-20">
+            <div class="finale-content scale-95 opacity-0 gs-reveal">
+                <i class="ph-duotone ph-cake text-6xl text-gold mb-6 inline-block animate-bounce"></i>
+                <h2 class="font-serif text-6xl md:text-8xl text-white mb-6">Make A Wish</h2>
+                <p class="font-sans text-xl text-gray-300 font-light mb-12 tracking-wide">Close your eyes, think of your
+                    biggest dream...</p>
+
+                <button onclick="triggerFinale()" class="btn-magical interactive">
+                    Blow the Candles ✨
+                </button>
+            </div>
+
+            <!-- CURSOR FIX: Ensure the final screen doesn't block interactions by setting up pointer events appropriately -->
+            <div id="final-message"
+                class="fixed inset-0 flex flex-col justify-center items-center bg-dark/95 backdrop-blur-2xl z-[100] px-6 text-center opacity-0 pointer-events-none transition-opacity duration-1000">
+                <div class="relative">
+                    <h1 class="font-serif text-6xl md:text-8xl font-bold mb-4 text-glow text-white">I Love You,</h1>
+                    <h1 class="font-script text-8xl md:text-[10rem] text-primary font-normal leading-none mb-8"
+                        style="text-shadow: 0 0 50px rgba(255,20,83,0.8);">Akanksha</h1>
+                </div>
+                <p
+                    class="font-sans text-xl md:text-2xl text-gold max-w-2xl mx-auto font-light mb-16 tracking-widest uppercase">
+                    To infinity and beyond.</p>
+
+                <div class="interactive flex flex-col items-center cursor-pointer group" onclick="closeFinale()">
+                    <div
+                        class="w-20 h-20 rounded-full border border-white/20 flex justify-center items-center group-hover:bg-white/10 group-hover:border-white/50 transition-all duration-300 mb-4">
+                        <i
+                            class="ph ph-arrow-counter-clockwise text-2xl text-white/50 group-hover:text-white group-hover:-rotate-90 transition-all duration-500"></i>
+                    </div>
+                    <span class="text-xs text-white/40 uppercase tracking-[0.2em]">Replay Magic</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // === OPTIMIZED CUSTOM CURSOR LOGIC ===
+        const cursor = document.getElementById('custom-cursor');
+        const dot = document.getElementById('cursor-dot');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            gsap.set(dot, { x: mouseX, y: mouseY });
+        });
+
+        gsap.ticker.add(() => {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            gsap.set(cursor, { x: cursorX, y: cursorY });
+        });
+
+        function initCursorHovers() {
+            document.querySelectorAll('.interactive, button, a').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+        }
+
+        // === PRELOADER LOGIC ===
+        let currentTextIndex = 1;
+        const totalTexts = 4;
+
+        window.addEventListener('load', () => {
+            const interval = setInterval(() => {
+                const current = document.getElementById(`load-text-${currentTextIndex}`);
+                if (current) {
+                    current.classList.remove('active'); current.classList.add('exit');
+                }
+                currentTextIndex++;
+                if (currentTextIndex <= totalTexts) {
+                    const next = document.getElementById(`load-text-${currentTextIndex}`);
+                    next.classList.remove('enter'); next.classList.add('active');
+
+                    if (currentTextIndex === totalTexts) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            document.querySelector('.loader-ring').style.opacity = '0';
+                            document.getElementById('enter-btn').classList.add('visible');
+                            initCursorHovers();
+                        }, 800);
+                    }
+                }
+            }, 1800);
+        });
+
+        // === ENTER SITE & INITIALIZE ===
+        let isPlaying = false;
+        const audio = document.getElementById('bg-music');
+        const vinyl = document.getElementById('vinyl-record');
+
+        function enterSite() {
+            audio.volume = 0.5;
+            audio.play().then(() => { isPlaying = true; vinyl.classList.add('playing'); }).catch(e => console.log(e));
+
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.getElementById('main-content');
+
+            mainContent.style.visibility = 'visible';
+            initGSAP();
+
+            gsap.to(preloader, {
+                opacity: 0,
+                duration: 1,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    preloader.style.display = 'none';
+                    gsap.to(mainContent, { opacity: 1, duration: 1 });
+                    initCursorHovers();
+                    setTimeout(() => ScrollTrigger.refresh(), 500);
+                }
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) { audio.pause(); vinyl.classList.remove('playing'); }
+            else { audio.play(); vinyl.classList.add('playing'); }
+            isPlaying = !isPlaying;
+        }
+
+        // === HOLD TO REVEAL SECRET LOGIC ===
+        const heartTarget = document.getElementById('heart-touch-target');
+        const heartFill = document.getElementById('magic-heart-fill');
+        const outlineHeart = document.getElementById('outline-heart');
+        const secretMsg = document.getElementById('secret-message');
+        let fillProgress = 100; // 100% means fully clipped (hidden)
+        let fillInterval;
+        let isFilled = false;
+
+        function updateHeartFill() {
+            heartFill.style.clipPath = `inset(${fillProgress}% 0 0 0)`;
+        }
+
+        function startFill(e) {
+            if (isFilled) return;
+            // Add hover effect programmatically to hint interaction
+            cursor.classList.add('hovering');
+
+            clearInterval(fillInterval);
+            fillInterval = setInterval(() => {
+                fillProgress -= 1.5; // Fill speed
+                updateHeartFill();
+
+                // Mild pulsing shake
+                const shake = Math.random() * 4 - 2;
+                heartTarget.parentElement.style.transform = `translateX(${shake}px) scale(1.05)`;
+
+                if (fillProgress <= 0) {
+                    clearInterval(fillInterval);
+                    isFilled = true;
+                    fillProgress = 0;
+                    updateHeartFill();
+
+                    heartTarget.parentElement.style.transform = `translateX(0px) scale(1.2)`;
+                    outlineHeart.style.opacity = '0';
+
+                    // Confetti Pop
+                    confetti({ particleCount: 40, spread: 70, origin: { y: 0.6 }, colors: ['#ff1453', '#e2c57a'] });
+
+                    // Reveal Message
+                    secretMsg.classList.remove('opacity-0', 'translate-y-4');
+                    secretMsg.classList.add('opacity-100', 'translate-y-0');
+
+                    // Remove cursor hover state since it's "done"
+                    cursor.classList.remove('hovering');
+                }
+            }, 30);
+        }
+
+        function stopFill() {
+            if (isFilled) return;
+            cursor.classList.remove('hovering');
+            clearInterval(fillInterval);
+            heartTarget.parentElement.style.transform = `translateX(0px) scale(1)`;
+
+            fillInterval = setInterval(() => {
+                fillProgress += 3; // Drain speed
+                if (fillProgress >= 100) {
+                    fillProgress = 100;
+                    clearInterval(fillInterval);
+                }
+                updateHeartFill();
+            }, 30);
+        }
+
+        heartTarget.addEventListener('mousedown', startFill);
+        heartTarget.addEventListener('touchstart', startFill, { passive: true });
+        window.addEventListener('mouseup', stopFill);
+        window.addEventListener('touchend', stopFill);
+
+
+        // === STABLE GSAP ANIMATIONS ===
+        gsap.registerPlugin(ScrollTrigger);
+
+        function initGSAP() {
+            gsap.to('#scroll-progress', {
+                width: '100%', ease: 'none',
+                scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.1 }
+            });
+
+            gsap.utils.toArray('.gs-reveal').forEach(elem => {
+                gsap.fromTo(elem,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                        scrollTrigger: { trigger: elem, start: "top 85%", toggleActions: "play none none reverse" }
+                    }
+                );
+            });
+
+            // FIXED HORIZONTAL SCROLL
+            const galleryWrapper = document.querySelector('.horizontal-scroll-wrapper');
+            const galleryTrack = document.querySelector('#gallery-track');
+
+            if (galleryTrack && galleryWrapper) {
+                let getScrollAmount = () => galleryTrack.scrollWidth - window.innerWidth;
+
+                ScrollTrigger.create({
+                    trigger: galleryWrapper,
+                    start: "top top",
+                    end: () => `+=${getScrollAmount()}`,
+                    pin: true,
+                    animation: gsap.to(galleryTrack, {
+                        x: () => -getScrollAmount(),
+                        ease: "none"
+                    }),
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                });
+            }
+
+            gsap.to('#timeline-progress-bar', {
+                height: '100%', ease: 'none',
+                scrollTrigger: { trigger: '.timeline-container', start: 'top center', end: 'bottom center', scrub: true }
+            });
+
+            gsap.to('.finale-content', {
+                scrollTrigger: { trigger: '.finale-content', start: "top 75%" },
+                scale: 1, opacity: 1, duration: 1.5, ease: "elastic.out(1, 0.5)"
+            });
+        }
+
+        // === INTERACTIVE LETTER ===
+        function openLetter(element) {
+            const seal = element.querySelector('.wax-seal');
+            const letter = element.querySelector('.letter-content');
+
+            if (!seal.classList.contains('broken')) {
+                seal.classList.add('broken');
+                setTimeout(() => { letter.classList.add('open'); }, 400);
+
+                confetti({
+                    particleCount: 40, spread: 60, origin: { y: 0.6 },
+                    colors: ['#990011', '#e2c57a', '#ff1453'], disableForReducedMotion: true
+                });
+            }
+        }
+
+        // === FINALE LOGIC ===
+        function triggerFinale() {
+            // Hide cursor momentarily for cinematic confetti effect
+            cursor.style.opacity = '0';
+            dot.style.opacity = '0';
+
+            const duration = 4000; const end = Date.now() + duration;
+            const colors = ['#ff1453', '#ff6b8b', '#ffffff', '#e2c57a'];
+
+            (function frame() {
+                confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                } else {
+                    const finalScreen = document.getElementById('final-message');
+                    finalScreen.style.pointerEvents = 'auto';
+                    gsap.to(finalScreen, { opacity: 1, duration: 2, ease: "power2.inOut" });
+
+                    // CRITICAL FIX: Restore custom cursor visibility so the user can click "Replay Magic"
+                    if (window.matchMedia("(pointer: fine)").matches) {
+                        cursor.style.opacity = '1';
+                        dot.style.opacity = '1';
+                    }
+                }
+            }());
+        }
+
+        function closeFinale() {
+            const finalScreen = document.getElementById('final-message');
+            gsap.to(finalScreen, {
+                opacity: 0, duration: 1,
+                onComplete: () => {
+                    finalScreen.style.pointerEvents = 'none';
+                }
+            });
+        }
+
+        // === HIGH PERFORMANCE CANVAS ENGINE ===
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        let particlesArray = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('mouseout', () => { mouse.x = undefined; mouse.y = undefined; });
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                initParticles();
+                ScrollTrigger.refresh();
+            }, 200);
+        });
+
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.density = (Math.random() * 30) + 1;
+                this.speedY = Math.random() * -0.3 - 0.1;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.6 + 0.1;
+                this.color = Math.random() > 0.5 ? '#ff1453' : (Math.random() > 0.5 ? '#e2c57a' : '#ff6b8b');
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+            update() {
+                this.y += this.speedY; this.x += this.speedX;
+
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x, dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= (dx / distance) * force * this.density * 0.5;
+                        this.y -= (dy / distance) * force * this.density * 0.5;
+                    }
+                }
+
+                if (this.y < 0) { this.y = canvas.height; this.x = Math.random() * canvas.width; }
+                if (this.x < 0 || this.x > canvas.width) { this.speedX = -this.speedX; }
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            const count = Math.min((canvas.width * canvas.height) / 12000, 150);
+            for (let i = 0; i < count; i++) { particlesArray.push(new Particle()); }
+        }
+
+        function animateParticles() {
+            ctx.fillStyle = '#030104';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].draw();
+                particlesArray[i].update();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles(); animateParticles();
+
+    </script>
+</body>
+
+</html>
