@@ -4,7 +4,7 @@
   "description": "A digital birthday masterpiece created for Akanksha.",
   "scripts": {
     "start": "serve .",
-    "build": "echo 'No build step required for this static project'"
+    "build": "mkdir public && cp index.html public/"
   },
   "keywords": [],
   "author": "Zafar",
